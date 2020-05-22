@@ -124,17 +124,17 @@ h2 {
 .aa-product-catg li .aa-product-hvr-content a:hover, .aa-product-catg li .aa-product-hvr-content a:focus {
   color: #a5d549;
 }
-#quick-view-modal .modal-content button.close:hover {
+.quick-view-modal .modal-content button.close:hover {
   color: #a5d549; 
 }
-#quick-view-modal .modal-content .aa-product-view-content .aa-price-block .aa-product-avilability span {
+.quick-view-modal .modal-content .aa-product-view-content .aa-price-block .aa-product-avilability span {
   color: #a5d549;
 }
-#quick-view-modal .modal-content .aa-product-view-content .aa-prod-view-size a:hover, #quick-view-modal .modal-content .aa-product-view-content .aa-prod-view-size a:focus {
+.quick-view-modal .modal-content .aa-product-view-content .aa-prod-view-size a:hover, .quick-view-modal .modal-content .aa-product-view-content .aa-prod-view-size a:focus {
   border-color: #a5d549;
   color: #a5d549;
 }
-#quick-view-modal .modal-content .aa-product-view-content .aa-prod-quantity .aa-prod-category a {
+.quick-view-modal .modal-content .aa-product-view-content .aa-prod-quantity .aa-prod-category a {
   color: #a5d549; 
 }
 .slick-prev,

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Providers;
-
+use View;
+use App\Category;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('*', function($view)
+        {
+            $allcategories = Category::all();
+            $view->with('allcategories', $allcategories);
+
+
+        });
     }
 }

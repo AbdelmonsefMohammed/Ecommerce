@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','WelcomePageController@index')->name('welcome');
+
+Route::get('/shop','ShopController@index')->name('shop');
+Route::get('/shop/{product}','ShopController@show')->name('shop.show');
+
+Route::get('/cart','CartController@index')->name('cart.index');
 
 Auth::routes();
 
