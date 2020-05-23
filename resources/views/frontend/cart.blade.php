@@ -22,15 +22,17 @@
     </div>
    </section>
    <!-- / catg header banner section -->
- 
+
+
+    
   <!-- Cart view section -->
   <section id="cart-view">
     <div class="container">
+      @if (Cart::count() > 0)
       <div class="row">
         <div class="col-md-12">
           <div class="cart-view-area">
             <div class="cart-view-table">
-              <form action="">
                 <div class="table-responsive">
                    <table class="table">
                      <thead>
@@ -44,30 +46,25 @@
                        </tr>
                      </thead>
                      <tbody>
+                       
+                       @foreach (Cart::content() as $item)
+                           
                        <tr>
-                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                         <td><a href="#"><img src="{{ asset('frontend') }}/img/man/polo-shirt-1.png" alt="img"></a></td>
-                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
+                         <td>
+                           <form method='POST' action='{{route("cart.destroy", $item->rowId)}}' >
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" style="background-color:#F5F5F5; border:none;" class="remove"><fa class="fa fa-close"></fa></button>
+                           </form>
+                         </td>
+                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-1.png" alt="img"></a></td>
+                         <td><a class="aa-cart-title" href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></td>
+                         <td>${{$item->model->price}}</td>
+                         <td><input class="aa-cart-quantity" type="number" value="{{$item->qty}}"></td>  
                          <td>$250</td>
-                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                         <td>$250</td>
                        </tr>
-                       <tr>
-                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                         <td><a href="#"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="img"></a></td>
-                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                         <td>$150</td>
-                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                         <td>$150</td>
-                       </tr>
-                       <tr>
-                         <td><a class="remove" href="#"><fa class="fa fa-close"></fa></a></td>
-                         <td><a href="#"><img src="{{ asset('frontend') }}/img/man/polo-shirt-3.png" alt="img"></a></td>
-                         <td><a class="aa-cart-title" href="#">Polo T-Shirt</a></td>
-                         <td>$50</td>
-                         <td><input class="aa-cart-quantity" type="number" value="1"></td>
-                         <td>$50</td>
-                       </tr>
+                       @endforeach
+
                        <tr>
                          <td colspan="6" class="aa-cart-view-bottom">
                            <div class="aa-cart-coupon">
@@ -80,7 +77,6 @@
                        </tbody>
                    </table>
                  </div>
-              </form>
               <!-- Cart Total view -->
               <div class="cart-view-total">
                 <h4>Cart Totals</h4>
@@ -88,11 +84,15 @@
                   <tbody>
                     <tr>
                       <th>Subtotal</th>
-                      <td>$450</td>
+                      <td>${{Cart::subtotal()}}</td>
+                    </tr>
+                    <tr>
+                      <th>Tax</th>
+                      <td>${{Cart::tax()}}</td>
                     </tr>
                     <tr>
                       <th>Total</th>
-                      <td>$450</td>
+                      <td>${{Cart::total()}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -102,9 +102,15 @@
           </div>
         </div>
       </div>
+      @else
+      <h3>Cart items (0)</h3>
+      <a class="aa-browse-btn" href="{{ route('shop')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+      @endif
     </div>
   </section>
   <!-- / Cart view section -->
+
+ 
 
   @include('layouts.frontend.subsection')
 

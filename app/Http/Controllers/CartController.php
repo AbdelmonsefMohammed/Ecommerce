@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
 {
@@ -34,7 +35,9 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Cart::add($request->id, $request->name, 1, $request->price, $request->weight)->associate('App\Product');
+
+        return redirect()->back()->with('success','Item added to your cart');
     }
 
     /**
@@ -79,6 +82,7 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Cart::remove($id);
+        return back()->with('success','Item removed your cart');
     }
 }

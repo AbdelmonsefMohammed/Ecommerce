@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">    
     <title>Daily Shop | Home</title>
     
-    <!-- Font awesome -->
+<!-- Font awesome -->
     <link href="{{ asset('frontend') }}/css/font-awesome.css" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="{{ asset('frontend') }}/css/bootstrap.css" rel="stylesheet">   
@@ -15,6 +15,7 @@
     <!-- Product view slider -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/jquery.simpleLens.css">    
     <!-- slick slider -->
+
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/slick.css">
     <!-- price picker slider -->
     <link rel="stylesheet" type="text/css" href="{{ asset('frontend') }}/css/nouislider.css">
@@ -142,7 +143,8 @@
   </footer>
   <!-- / footer -->
 
-  
+  @include('sweetalert::alert')
+
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -152,6 +154,7 @@
   <!-- SmartMenus jQuery Bootstrap Addon -->
   <script type="text/javascript" src="{{ asset('frontend') }}/js/jquery.smartmenus.bootstrap.js"></script>  
   <!-- To Slider JS -->
+
   <script src="{{ asset('frontend') }}/js/sequence.js"></script>
   <script src="{{ asset('frontend') }}/js/sequence-theme.modern-slide-in.js"></script>  
   <!-- Product view slider -->

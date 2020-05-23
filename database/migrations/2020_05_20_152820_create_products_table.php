@@ -17,9 +17,10 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('slug')->unique();
-            $table->string('details')->nullable();
+            $table->string('details');
             $table->integer('price');
             $table->integer('rating')->default(0);
+            $table->integer('weight')->nullable();
             $table->text('description');
 
             $table->unsignedBigInteger('category_id');

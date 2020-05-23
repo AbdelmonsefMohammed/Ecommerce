@@ -107,7 +107,16 @@
                             <li>
                               <figure>
                                 <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="polo shirt img"></a>
-                                <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
+                                <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                                  @csrf
+                                  <input type="hidden" name="id" value="{{$product->id}}">
+                                  <input type="hidden" name="name" value="{{$product->name}}">
+                                  <input type="hidden" name="price" value="{{$product->price}}">
+                                  <input type="hidden" name="weight" value="{{$product->weight}}">
+                                  <button type="submit" style="width:100%;border:none" class="aa-add-card-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                               </form>
+                               
                                   <figcaption>
                                   <h4 title="{{$product->name}}" class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{\Str::limit($product->name, 30)}}</a></h4>
                                   <span class="aa-product-price">${{$product->price}}</span><span class="aa-product-price"><del>$65.50</del></span>
@@ -181,7 +190,15 @@
                                       </p>
                                     </div>
                                     <div class="aa-prod-view-bottom">
-                                      <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
+                                      {{-- <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
+                                      <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$product->id}}">
+                                        <input type="hidden" name="name" value="{{$product->name}}">
+                                        <input type="hidden" name="price" value="{{$product->price}}">
+                                        <input type="hidden" name="weight" value="{{$product->weight}}">
+                                        <button type="submit" style="background-color:#fff" class="aa-add-to-cart-btn">Add To Cart</button>
+                                     </form>
                                       <a href="{{ route('shop.show', $product->slug)}}  " class="aa-add-to-cart-btn">View Details</a>
                                     </div>
                                   </div>

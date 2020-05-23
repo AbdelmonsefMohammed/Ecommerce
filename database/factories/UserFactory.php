@@ -44,6 +44,7 @@ $factory->define(Product::class, function (Faker $faker) {
         'details' =>$faker->sentence,
         'price' => $faker->randomElement([54,90,20,40,100,120]),
         'rating'=> $faker->randomElement([0,1,2,3,4,5]),
+        'weight' => $faker->randomElement([50,100,150]),
         'description' => $faker->paragraph,
         'category_id' => Category::all()->random()->id,
     ];

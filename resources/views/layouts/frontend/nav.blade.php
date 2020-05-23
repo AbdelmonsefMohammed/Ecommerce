@@ -48,7 +48,7 @@
                 <ul class="aa-head-top-nav-right">
                   <li><a href="account.html">My Account</a></li>
                   <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
-                  <li class="hidden-xs"><a href="cart.html">My Cart</a></li>
+                  <li class="hidden-xs"><a href="{{route('cart.index')}}">My Cart</a></li>
                   <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
                   <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                 </ul>
@@ -79,29 +79,30 @@
               <!-- / logo  -->
                <!-- cart box -->
               <div class="aa-cartbox">
-                <a class="aa-cart-link" href="#">
+                <a class="aa-cart-link" href="{{route('cart.index')}}">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
-                  <span class="aa-cart-notify">2</span>
+                  <span class="aa-cart-notify">{{Cart::instance('default')->count()}}</span>
                 </a>
+                @if (Cart::count() > 0)
                 <div class="aa-cartbox-summary">
                   <ul>
+                    @foreach (Cart::content() as $item)
+                        
                     <li>
-                      <a class="aa-cartbox-img" href="#"><img src="{{ asset('frontend') }}/img/woman-small-2.jpg" alt="img"></a>
+                      <a class="aa-cartbox-img" href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/woman-small-2.jpg" alt="img"></a>
                       <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
+                        <h4><a href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></h4>
+                        <p>1 x ${{$item->model->price}}</p>
                       </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>
-                    <li>
-                      <a class="aa-cartbox-img" href="#"><img src="{{ asset('frontend') }}/img/woman-small-1.jpg" alt="img"></a>
-                      <div class="aa-cartbox-info">
-                        <h4><a href="#">Product Name</a></h4>
-                        <p>1 x $250</p>
-                      </div>
-                      <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a>
-                    </li>                    
+                      {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
+                      <form action="{{route('cart.destroy', $item->rowId)}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" style="background-color:#F5F5F5;border:none" class="aa-remove-product"><span class="fa fa-times"></span></button>
+                     </form>
+                    </li> 
+                    @endforeach                
                     <li>
                       <span class="aa-cartbox-total-title">
                         Total
@@ -113,6 +114,7 @@
                   </ul>
                   <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
                 </div>
+                @endif
               </div>
               <!-- / cart box -->
               <!-- search box -->
