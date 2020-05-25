@@ -30,6 +30,7 @@
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+    <script src="https://js.stripe.com/v3/"></script>
 
   </head>
   <body> 
@@ -166,6 +167,8 @@
   <script type="text/javascript" src="{{ asset('frontend') }}/js/nouislider.js"></script>
   <!-- Custom js -->
   <script src="{{ asset('frontend') }}/js/custom.js"></script> 
+
+  @yield('extra-js')
 
   </body>
 </html>

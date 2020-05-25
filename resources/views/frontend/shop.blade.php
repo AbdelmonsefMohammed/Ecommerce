@@ -47,13 +47,13 @@
                  <li>
                    <figure>
                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/women/girl-1.png" alt="polo shirt img"></a>
-                     <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                     <form method="POST" style="display:inline-block" action="{{route('cart.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
                       <input type="hidden" name="name" value="{{$product->name}}">
                       <input type="hidden" name="price" value="{{$product->price}}">
                       <input type="hidden" name="weight" value="{{$product->weight}}">
-                      <button type="submit" style="width:100%;border:none" class="aa-add-card-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                      <button type="submit" style="border:none;width:100%;:hover:transform:scale(1);" class="aa-add-card-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
                    </form>
                      <figcaption>
                        <h4 class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{$product->name}}</a></h4>
@@ -62,7 +62,14 @@
                      </figcaption>
                    </figure>                         
                    <div class="aa-product-hvr-content">
-                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <form method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
+                      @csrf
+                      <input type="hidden" name="id" value="{{$product->id}}">
+                      <input type="hidden" name="name" value="{{$product->name}}">
+                      <input type="hidden" name="price" value="{{$product->price}}">
+                      <input type="hidden" name="weight" value="{{$product->weight}}">
+                      <button style="background-color:#fff;border:none;width:36px;height:32px;;" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" type="submit"><span class="fa fa-heart-o"></span></button>
+                   </form>
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                      <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                            
                    </div>

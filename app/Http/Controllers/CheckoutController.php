@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CheckoutRequest;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Cartalyst\Stripe\Exception\CardErrorException;
 
-class CartController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +17,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('frontend.cart');
+        return view('frontend.checkout');
     }
 
     /**
@@ -33,11 +36,28 @@ class CartController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CheckoutRequest $request)
     {
-        Cart::add($request->id, $request->name, 1, $request->price, $request->weight)->associate('App\Product');
-
-        return redirect()->back()->with('success','Item added to your cart');
+        $contents = Cart::content()->map(function ($item){
+            return $item->model->slug.','.$item->qty;
+        })->values()->toJson();
+        try {
+            $charge = Stripe::charges()->create([
+                'amount' => Cart::total(),
+                'currency' => 'USD',
+                'source' => $request->stripeToken,
+                'description' => 'Order',
+                'receipt_email' => $request->email,
+                'metadata' =>[
+                    'contents' => $contents,
+                    'quantity' => Cart::instance('default')->count(),
+                ],
+            ]);
+            Cart::instance('default')->destroy();
+            return redirect()->route('welcome')->with('success','Thank you! Your payment has been successfully accepted!');
+        } catch (CardErrorException $e) {
+            return back()->with('errors', $e->getMessage());
+        }
     }
 
     /**
@@ -82,22 +102,6 @@ class CartController extends Controller
      */
     public function destroy($id)
     {
-        Cart::remove($id);
-        return back()->with('success','Item removed from cart');
-    }
-
-    public function switchToWishlist($id)
-    {   
-        $item = Cart::get($id);
-        Cart::remove($id);
-        $duplicates = Cart::instance('wishlist')->search(function ($cartItem, $rowId) use ($id) {
-            return $rowId == $id;
-        });
-        if($duplicates->isNotEmpty()){
-            return back()->with('info','Item exists in Watchlist');
-        }
-        Cart::instance('wishlist')->add($item->id, $item->name, 1, $item->price, $item->weight)->associate('App\Product');
-
-        return redirect()->back()->with('success','Item added to Wishlist');
+        //
     }
 }

@@ -47,9 +47,9 @@
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
                   <li><a href="account.html">My Account</a></li>
-                  <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
+                  <li class="hidden-xs"><a href="{{route('wishlist.index')}}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{route('cart.index')}}">My Cart</a></li>
-                  <li class="hidden-xs"><a href="checkout.html">Checkout</a></li>
+                  <li class="hidden-xs"><a href="{{route('checkout.index')}}">Checkout</a></li>
                   <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
                 </ul>
               </div>
@@ -87,13 +87,13 @@
                 @if (Cart::count() > 0)
                 <div class="aa-cartbox-summary">
                   <ul>
-                    @foreach (Cart::content() as $item)
+                    @foreach (Cart::content()->take(3) as $item)
                         
                     <li>
                       <a class="aa-cartbox-img" href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/woman-small-2.jpg" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></h4>
-                        <p>1 x ${{$item->model->price}}</p>
+                        <p>{{$item->qty}} x ${{$item->model->price}}</p>
                       </div>
                       {{-- <a class="aa-remove-product" href="#"><span class="fa fa-times"></span></a> --}}
                       <form action="{{route('cart.destroy', $item->rowId)}}" method="POST">
@@ -108,7 +108,7 @@
                         Total
                       </span>
                       <span class="aa-cartbox-total-price">
-                        $500
+                        ${{Cart::total()}}
                       </span>
                     </li>
                   </ul>
