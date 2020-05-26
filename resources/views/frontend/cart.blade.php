@@ -68,7 +68,7 @@
                          <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-1.png" alt="img"></a></td>
                          <td><a class="aa-cart-title" href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></td>
                          <td>${{$item->model->price}}</td>
-                         <td><input class="aa-cart-quantity" type="number" value="{{$item->qty}}"></td>  
+                         <td><input class="aa-cart-quantity quantity" type="number" data-id="{{ $item->rowId }}" value="{{$item->qty}}"></td>  
                           <td>${{$item->qty * $item->model->price}}</td>
                        </tr>
                        @endforeach
@@ -79,7 +79,8 @@
                              <input class="aa-coupon-code" type="text" placeholder="Coupon">
                              <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
                            </div>
-                           <input class="aa-cart-view-btn" type="submit" value="Update Cart">
+                           {{-- <input class="aa-cart-view-btn" type="submit" value="Update Cart"> --}}
+                           <a class="aa-cart-view-btn"  href="{{ route('cart.index')}}">Update Cart</a>
                          </td>
                        </tr>
                        </tbody>
@@ -122,4 +123,32 @@
 
   @include('layouts.frontend.subsection')
 
+  @endsection
+
+  @section('extra-js')
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+     <script>
+       (function(){
+           const classname = document.querySelectorAll('.quantity');
+           
+           Array.from(classname).forEach(function(element){
+              element.addEventListener('change' , function(){
+                const id = element.getAttribute('data-id')
+                // const productQuantity = element.getAttribute('data-productQuantity')
+                axios.patch(`/cart/${id}`, {
+                        quantity: this.value,
+                        // productQuantity: productQuantity
+                    })
+                    .then(function (response) {
+                        // console.log(response);
+                        // window.location.href = '{{ route('cart.index') }}';
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        // window.location.href = '{{ route('cart.index') }}'
+                    });
+              })
+           });
+       })();
+     </script>
   @endsection
