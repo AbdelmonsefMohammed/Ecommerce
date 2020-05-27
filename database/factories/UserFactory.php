@@ -5,6 +5,7 @@
 use App\User;
 use App\Category;
 use App\Product;
+use App\Tag;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -30,6 +31,13 @@ $factory->define(User::class, function (Faker $faker) {
 });
 
 $factory->define(Category::class, function (Faker $faker) {
+    return [
+        'name' => $faker->word,
+
+    ];
+});
+
+$factory->define(Tag::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
 

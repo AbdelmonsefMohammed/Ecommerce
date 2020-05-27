@@ -1,6 +1,7 @@
 <?php
-
+use App\Tag;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -10,10 +11,20 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
+    {   $this->call(CouponsTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
         $users = factory('App\User', 20)->create();
-        $categories = factory('App\Category', 4)->create();
-        $products = factory('App\Product', 30)->create();
+        $categories = factory('App\Category', 6)->create();
+        $tags = factory('App\Tag', 7)->create();
+        $products = factory('App\Product', 90)->create();
+
+        foreach($products as $product)
+        {
+            $tags_ids = [];
+            $tags_ids[] = Tag::all()->random()->id;
+            $tags_ids[] = Tag::all()->random()->id;
+
+            $product->tags()->sync($tags_ids);
+        }
     }
 }

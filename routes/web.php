@@ -14,7 +14,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 Route::get('/','WelcomePageController@index')->name('welcome');
 
-Route::get('/shop','ShopController@index')->name('shop');
+Route::get('/shop','ShopController@index')->name('shop.index');
 Route::get('/shop/{product}','ShopController@show')->name('shop.show');
 
 Route::get('/cart','CartController@index')->name('cart.index');
@@ -27,6 +27,9 @@ Route::get('/wishlist','WishlistController@index')->name('wishlist.index');
 Route::post('/wishlist','WishlistController@store')->name('wishlist.store');
 Route::delete('/wishlist/{product}','WishlistController@destroy')->name('wishlist.destroy');
 Route::post('/wishlist/cart/{product}','WishlistController@switchToCart')->name('wishlist.switchtocart');
+
+Route::post('/coupon', 'CouponsController@store')->name('coupon.store');
+Route::delete('/coupon', 'CouponsController@destroy')->name('coupon.destroy');
 
 Route::get('/checkout','CheckoutController@index')->name('checkout.index');
 Route::post('/checkout','CheckoutController@store')->name('checkout.store');

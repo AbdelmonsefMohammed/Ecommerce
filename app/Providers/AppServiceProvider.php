@@ -3,6 +3,7 @@
 namespace App\Providers;
 use View;
 use App\Category;
+use App\Tag;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,7 +28,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer('*', function($view)
         {
             $allcategories = Category::all();
-            $view->with('allcategories', $allcategories);
+            $tags = Tag::all();
+            $view->with(compact('allcategories', 'tags'));
+
 
 
         });

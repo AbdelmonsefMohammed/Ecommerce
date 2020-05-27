@@ -73,16 +73,24 @@
                        </tr>
                        @endforeach
 
+
                        <tr>
                          <td colspan="7" class="aa-cart-view-bottom">
+                          @if (!session()->has('coupon'))
+                           <form action="{{ route('coupon.store')}}" method="POST">
+                            @csrf
                            <div class="aa-cart-coupon">
-                             <input class="aa-coupon-code" type="text" placeholder="Coupon">
+                             <input class="aa-coupon-code" type="text" name="coupon_code" placeholder="Coupon">
                              <input class="aa-cart-view-btn" type="submit" value="Apply Coupon">
                            </div>
-                           {{-- <input class="aa-cart-view-btn" type="submit" value="Update Cart"> --}}
+                          </form>
+                          @endif
+
                            <a class="aa-cart-view-btn"  href="{{ route('cart.index')}}">Update Cart</a>
                          </td>
                        </tr>
+
+
                        </tbody>
                    </table>
                  </div>
@@ -95,13 +103,30 @@
                       <th>Subtotal</th>
                       <td>${{Cart::subtotal()}}</td>
                     </tr>
+                    @if (session()->has('coupon'))
+                    <tr>
+                        <th>
+                          <form style="display:inline-block;" method='POST' action='{{route("coupon.destroy")}}' >
+                            @csrf
+                            @method('DELETE')
+                            <button title="Delete" type="submit" style="background-color:#F5F5F5; border:none;" ><fa class="fa fa-close" style="color:#ff0000;"></fa></button>
+                        </form>
+                          Discount({{session()->get('coupon')['name']}})
+                        </th>
+                        <td>-${{$discount}}</td>
+                    </tr>
+                    <tr>
+                      <th>New Subtotal</th>
+                      <td>${{$newSubtotal}}</td>
+                    </tr>
+                    @endif
                     <tr>
                       <th>Tax</th>
-                      <td>${{Cart::tax()}}</td>
+                      <td>${{$newTax}}</td>
                     </tr>
                     <tr>
                       <th>Total</th>
-                      <td>${{Cart::total()}}</td>
+                      <td>${{$newTotal}}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -113,7 +138,7 @@
       </div>
       @else
       <h3>Cart items (0)</h3>
-      <a class="aa-browse-btn" href="{{ route('shop')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+      <a class="aa-browse-btn" href="{{ route('shop.index')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
       @endif
     </div>
   </section>

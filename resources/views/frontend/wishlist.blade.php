@@ -75,7 +75,7 @@
       </div>
       @else
       <h3>Wishlist items (0)</h3>
-      <a class="aa-browse-btn" href="{{ route('shop')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+      <a class="aa-browse-btn" href="{{ route('shop.index')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
       @endif
     </div>
   </section>

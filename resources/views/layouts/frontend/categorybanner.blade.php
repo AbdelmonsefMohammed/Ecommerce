@@ -4,10 +4,10 @@
     <div class="aa-catg-head-banner-area">
       <div class="container">
        <div class="aa-catg-head-banner-content">
-         <h2>Fashion</h2>
+         <h2>{{$pagename}}</h2>
          <ol class="breadcrumb">
-           <li><a href="index.html">Home</a></li>         
-           <li class="active">Women</li>
+           <li><a href="{{route('welcome')}}">Home</a></li>         
+           <li class="active">{{$pagename}}</li>
          </ol>
        </div>
       </div>

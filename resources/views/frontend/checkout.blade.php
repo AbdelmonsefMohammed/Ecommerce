@@ -183,13 +183,25 @@
                           <th>Subtotal</th>
                           <td>${{Cart::subtotal()}}</td>
                         </tr>
-                         <tr>
-                          <th>Tax</th>
-                          <td>${{Cart::tax()}}</td>
+                        @if (session()->has('coupon'))
+                        <tr>
+                            <th>
+                              Discount ({{session()->get('coupon')['name']}})
+                            </th>
+                            <td>-${{$discount}}</td>
                         </tr>
-                         <tr>
+                        <tr>
+                          <th>New Subtotal</th>
+                          <td>${{$newSubtotal}}</td>
+                        </tr>
+                        @endif
+                        <tr>
+                          <th>Tax</th>
+                          <td>${{$newTax}}</td>
+                        </tr>
+                        <tr>
                           <th>Total</th>
-                          <td>${{Cart::total()}}</td>
+                          <td>${{$newTotal}}</td>
                         </tr>
                       </tfoot>
                     </table>

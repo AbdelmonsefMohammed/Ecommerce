@@ -151,9 +151,9 @@
             <!-- Left nav -->
             <ul class="nav navbar-nav">
               <li><a href="{{route('welcome')}}">Home</a></li>
-              <li><a href="{{route('shop')}}">All Categories</a></li>
+              <li><a href="{{route('shop.index')}}">All Categories</a></li>
               @foreach ($allcategories as $category)
-                <li><a href="#">{{ucfirst(trans($category->name))}}</a></li>
+                <li><a href="{{route('shop.index', ['category' => $category->name])}}">{{ucfirst(trans($category->name))}}</a></li>
               @endforeach  
               <li><a href="contact.html">Contact</a></li>
 

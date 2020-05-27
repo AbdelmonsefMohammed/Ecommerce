@@ -16,23 +16,23 @@
            <div class="aa-product-catg-content">
              <div class="aa-product-catg-head">
                <div class="aa-product-catg-head-left">
-                 <form action="" class="aa-sort-form">
-                   <label for="">Sort by</label>
+
+                  
+                   <label for="">Sort by price</label>
                    <select name="">
-                     <option value="1" selected="Default">Default</option>
-                     <option value="2">Name</option>
-                     <option value="3">Price</option>
-                     <option value="4">Date</option>
+                     <option value="1" selected="Default"></option>
+                     <option value="2"><a href="#">Low to High</a></option>
+                     <option value="3"><a href="#">High to Low</a></option>
                    </select>
-                 </form>
-                 <form action="" class="aa-show-form">
+
+
                    <label for="">Show</label>
                    <select name="">
                      <option value="1" selected="12">12</option>
                      <option value="2">24</option>
                      <option value="3">36</option>
                    </select>
-                 </form>
+
                </div>
                <div class="aa-product-catg-head-right">
                  <a id="grid-catg" href="#"><span class="fa fa-th"></span></a>
@@ -152,23 +152,7 @@
              </div>
              <div class="aa-product-catg-pagination">
                <nav>
-                 <ul class="pagination">
-                   <li>
-                     <a href="#" aria-label="Previous">
-                       <span aria-hidden="true">&laquo;</span>
-                     </a>
-                   </li>
-                   <li><a href="#">1</a></li>
-                   <li><a href="#">2</a></li>
-                   <li><a href="#">3</a></li>
-                   <li><a href="#">4</a></li>
-                   <li><a href="#">5</a></li>
-                   <li>
-                     <a href="#" aria-label="Next">
-                       <span aria-hidden="true">&raquo;</span>
-                     </a>
-                   </li>
-                 </ul>
+                      {{$products->appends(request()->input())->links()}}
                </nav>
              </div>
            </div>
@@ -182,4 +166,40 @@
 
    @include('layouts.frontend.subsection')
 
+@endsection
+
+@section('extra-js')
+    <script>
+      jQuery(function(){
+
+       var skipSlider = document.getElementById('skipstep');
+        noUiSlider.create(skipSlider, {
+            range: {
+                'min': 0,
+                '10%': 10,
+                '20%': 20,
+                '30%': 30,
+                '40%': 40,
+                '50%': 50,
+                '60%': 60,
+                '70%': 70,
+                '80%': 80,
+                '90%': 90,
+                'max': 100
+            },
+            snap: true,
+            connect: true,
+            start: [20, 70]
+        });
+        // for value print
+        var skipValues = [
+          document.getElementById('skip-value-lower'),
+          document.getElementById('skip-value-upper')
+        ];
+
+        skipSlider.noUiSlider.on('update', function( values, handle ) {
+          skipValues[handle].innerHTML = values[handle];
+        });
+    });
+    </script>
 @endsection

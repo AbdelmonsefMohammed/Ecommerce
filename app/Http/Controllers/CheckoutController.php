@@ -17,7 +17,12 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        return view('frontend.checkout');
+        $tax = config('cart.tax') / 100;
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $newSubtotal = (Cart::subtotal() - $discount);
+        $newTax = $newSubtotal * $tax;
+        $newTotal = $newSubtotal + $newTax;
+        return view('frontend.checkout',compact('discount','newSubtotal','newTax','newTotal'));
     }
 
     /**
@@ -38,12 +43,19 @@ class CheckoutController extends Controller
      */
     public function store(CheckoutRequest $request)
     {
+        $tax = config('cart.tax') / 100;
+        $discount = session()->get('coupon')['discount'] ?? 0;
+        $newSubtotal = (Cart::subtotal() - $discount);
+        $newTax = $newSubtotal * $tax;
+        $newTotal = $newSubtotal + $newTax;
+
+
         $contents = Cart::content()->map(function ($item){
             return $item->model->slug.','.$item->qty;
         })->values()->toJson();
         try {
             $charge = Stripe::charges()->create([
-                'amount' => Cart::total(),
+                'amount' => $newTotal,
                 'currency' => 'USD',
                 'source' => $request->stripeToken,
                 'description' => 'Order',
@@ -51,9 +63,11 @@ class CheckoutController extends Controller
                 'metadata' =>[
                     'contents' => $contents,
                     'quantity' => Cart::instance('default')->count(),
+                    'discount' => collect(session()->get('coupon'))->toJson(),
                 ],
             ]);
             Cart::instance('default')->destroy();
+            session()->forget('coupon');
             return redirect()->route('welcome')->with('success','Thank you! Your payment has been successfully accepted!');
         } catch (CardErrorException $e) {
             return back()->with('errors', $e->getMessage());

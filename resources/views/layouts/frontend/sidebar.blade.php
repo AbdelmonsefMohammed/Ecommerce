@@ -4,9 +4,9 @@
       <div class="aa-sidebar-widget">
         <h3>Category</h3>
         <ul class="aa-catg-nav">
-          <li><a href="{{route('shop')}}">All Categories</a></li>
+          <li><a href="{{route('shop.index')}}">All Categories</a></li>
           @foreach ($allcategories as $category)
-            <li><a href="#">{{ucfirst(trans($category->name))}}</a></li>
+            <li><a href="{{route('shop.index', ['category' => $category->name])}}">{{ucfirst(trans($category->name))}}</a></li>
           @endforeach  
         </ul>
       </div>
@@ -14,13 +14,10 @@
       <div class="aa-sidebar-widget">
         <h3>Tags</h3>
         <div class="tag-cloud">
-          <a href="#">Fashion</a>
-          <a href="#">Ecommerce</a>
-          <a href="#">Shop</a>
-          <a href="#">Hand Bag</a>
-          <a href="#">Laptop</a>
-          <a href="#">Head Phone</a>
-          <a href="#">Pen Drive</a>
+          @foreach ($tags as $tag)
+          <a href="{{route('shop.index', ['tag' => $tag->name])}}">{{ucfirst(trans($tag->name))}}</a>
+        @endforeach  
+
         </div>
       </div>
       <!-- single sidebar -->
