@@ -46,18 +46,19 @@
                      
                  <li>
                    <figure>
-                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/women/girl-1.png" alt="polo shirt img"></a>
-                     <form method="POST" style="display:inline-block" action="{{route('cart.store')}}">
+                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
+                     {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
+                     <form method="POST" class="aa-add-card-btn" action="{{route('cart.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
                       <input type="hidden" name="name" value="{{$product->name}}">
                       <input type="hidden" name="price" value="{{$product->price}}">
                       <input type="hidden" name="weight" value="{{$product->weight}}">
-                      <button type="submit" style="border:none;width:100%;:hover:transform:scale(1);" class="aa-add-card-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
-                   </form>
+                      <button type="submit" style="background-color: black;border: none;text-transform: uppercase;" ><span class="fa fa-shopping-cart"></span>Add To Cart</button>
+                      </form>
                      <figcaption>
                        <h4 class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{$product->name}}</a></h4>
-                       <span class="aa-product-price">${{$product->price}}</span><span class="aa-product-price"><del>$65.50</del></span>
+                       <span class="aa-product-price">${{$product->price}}</span>
                        <p class="aa-product-descrip">{{$product->details}}</p>
                      </figcaption>
                    </figure>                         
@@ -70,11 +71,10 @@
                       <input type="hidden" name="weight" value="{{$product->weight}}">
                       <button style="background-color:#fff;border:none;width:36px;height:32px;;" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" type="submit"><span class="fa fa-heart-o"></span></button>
                    </form>
-                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                      <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                            
                    </div>
                    <!-- product badge -->
-                   <span class="aa-badge aa-sale" href="#">SALE!</span>
+                   {{-- <span class="aa-badge aa-sale" href="#">SALE!</span> --}}
                    {{-- <span class="aa-badge aa-sold-out" href="#">Sold Out!</span> --}}
                    {{-- <span class="aa-badge aa-hot" href="#">HOT!</span> --}}
                  </li>
@@ -99,8 +99,8 @@
                              <div class="simpleLens-gallery-container" id="demo-1">
                                <div class="simpleLens-container">
                                    <div class="simpleLens-big-image-container">
-                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/view-slider/large/polo-shirt-1.png">
-                                           <img src="{{ asset('frontend') }}/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png">
+                                           <img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image">
                                        </a>
                                    </div>
                                </div>
@@ -116,17 +116,20 @@
                                <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                              </div>
                              <p>{{$product->details}}</p>
-                             <h4>Size</h4>
-                             <div class="aa-prod-view-size">
-                               <a href="#">S</a>
-                               <a href="#">M</a>
-                               <a href="#">L</a>
-                               <a href="#">XL</a>
+                             <h4>Rating</h4>
+                             <div class="aa-product-rating">
+                               @for($i=0;$i<5;$i++)
+                                 @if ($i < $product->rating)
+                                     <span style="color:#ff6600" class="fa fa-star"></span>
+                                 @else
+                                     <span style="color:#ff6600" class="fa fa-star-o"></span>
+                                 @endif
+                               @endfor
                              </div>
                              <div class="aa-prod-quantity">
 
                                <p class="aa-prod-category">
-                                 Category: <a href="#">{{$product->category->name}}</a>
+                                 Category: <a href="{{route('shop.index', ['category' => $product->category->name])}}">{{$product->category->name}}</a>
                                </p>
                              </div>
                              <div class="aa-prod-view-bottom">

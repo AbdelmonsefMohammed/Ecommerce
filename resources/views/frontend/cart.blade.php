@@ -8,7 +8,7 @@
 
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="{{ asset('frontend') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="{{ asset('frontend') }}/img/header-bg.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
       <div class="container">
        <div class="aa-catg-head-banner-content">
@@ -65,7 +65,7 @@
                          </form>
 
                          </td>
-                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-1.png" alt="img"></a></td>
+                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/products/{{$item->model->slug}}.png" alt="img"></a></td>
                          <td><a class="aa-cart-title" href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></td>
                          <td>${{$item->model->price}}</td>
                          <td><input class="aa-cart-quantity quantity" type="number" data-id="{{ $item->rowId }}" value="{{$item->qty}}"></td>  

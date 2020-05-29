@@ -13,18 +13,21 @@ class DatabaseSeeder extends Seeder
     public function run()
     {   $this->call(CouponsTableSeeder::class);
         // $this->call(UsersTableSeeder::class);
-        $users = factory('App\User', 20)->create();
-        $categories = factory('App\Category', 6)->create();
-        $tags = factory('App\Tag', 7)->create();
-        $products = factory('App\Product', 90)->create();
+        $this->call(CategoriesTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
+        $products = $this->call(ProductsTableSeeder::class);
+        // $users = factory('App\User', 20)->create();
+        // $categories = factory('App\Category', 6)->create();
+        // $tags = factory('App\Tag', 7)->create();
+        // $products = factory('App\Product', 90)->create();
 
-        foreach($products as $product)
-        {
-            $tags_ids = [];
-            $tags_ids[] = Tag::all()->random()->id;
-            $tags_ids[] = Tag::all()->random()->id;
+        // foreach($products as $product)
+        // {
+        //     $tags_ids = [];
+        //     $tags_ids[] = Tag::all()->random()->id;
+        //     $tags_ids[] = Tag::all()->random()->id;
 
-            $product->tags()->sync($tags_ids);
-        }
+        //     $product->tags()->sync($tags_ids);
+        // }
     }
 }

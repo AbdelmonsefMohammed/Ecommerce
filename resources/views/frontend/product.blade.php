@@ -8,7 +8,7 @@
   
   <!-- catg header banner section -->
   <section id="aa-catg-head-banner">
-    <img src="{{ asset('frontend') }}/img/fashion/fashion-header-bg-8.jpg" alt="fashion img">
+    <img src="{{ asset('frontend') }}/img/header-bg.jpg" alt="fashion img">
     <div class="aa-catg-head-banner-area">
       <div class="container">
        <div class="aa-catg-head-banner-content">
@@ -37,7 +37,7 @@
                    <div class="aa-product-view-slider">                                
                      <div id="demo-1" class="simpleLens-gallery-container">
                        <div class="simpleLens-container">
-                         <div class="simpleLens-big-image-container"><a data-lens-image="img/view-slider/large/polo-shirt-1.png" class="simpleLens-lens-image"><img src="{{ asset('frontend') }}/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image"></a></div>
+                         <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-lens-image"><img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image"></a></div>
                        </div>
                      </div>
                    </div>
@@ -45,26 +45,21 @@
                  <!-- Modal view content -->
                  <div class="col-md-7 col-sm-7 col-xs-12">
                    <div class="aa-product-view-content">
-                     <h3>{{$product->name}}</h3>
+                     <h3>{{ucfirst(trans($product->name))}}</h3>
                      <div class="aa-price-block">
                        <span class="aa-product-view-price">${{$product->price}}</span>
                        <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                      </div>
                      <p>{{$product->details}}</p>
-                     <h4>Size</h4>
-                     <div class="aa-prod-view-size">
-                       <a href="#">S</a>
-                       <a href="#">M</a>
-                       <a href="#">L</a>
-                       <a href="#">XL</a>
-                     </div>
-                     <h4>Color</h4>
-                     <div class="aa-color-tag">
-                       <a href="#" class="aa-color-green"></a>
-                       <a href="#" class="aa-color-yellow"></a>
-                       <a href="#" class="aa-color-pink"></a>                      
-                       <a href="#" class="aa-color-black"></a>
-                       <a href="#" class="aa-color-white"></a>                      
+                     <h4>Rating</h4>
+                     <div class="aa-product-rating">
+                       @for($i=0;$i<5;$i++)
+                         @if ($i < $product->rating)
+                             <span style="color:#ff6600" class="fa fa-star"></span>
+                         @else
+                             <span style="color:#ff6600" class="fa fa-star-o"></span>
+                         @endif
+                       @endfor
                      </div>
                      <div class="aa-prod-quantity">
                        <form action="">
@@ -78,7 +73,7 @@
                          </select>
                        </form>
                        <p class="aa-prod-category">
-                         Category: <a href="#">{{$product->category->name}}</a>
+                         Category: <a href="{{route('shop.index', ['category' => $product->category->name])}}">{{$product->category->name}}</a>
                        </p>
                      </div>
                      <div class="aa-prod-view-bottom">
@@ -91,8 +86,14 @@
                           <input type="hidden" name="weight" value="{{$product->weight}}">
                           <button type="submit" style="background-color:#fff" class="aa-add-to-cart-btn">Add To Cart</button>
                        </form>
-                       <a class="aa-add-to-cart-btn" href="#">Wishlist</a>
-                       <a class="aa-add-to-cart-btn" href="#">Compare</a>
+                       <form method="POST" style="display:inline" action="{{route('wishlist.store')}}">
+                        @csrf
+                        <input type="hidden" name="id" value="{{$product->id}}">
+                        <input type="hidden" name="name" value="{{$product->name}}">
+                        <input type="hidden" name="price" value="{{$product->price}}">
+                        <input type="hidden" name="weight" value="{{$product->weight}}">
+                        <button type="submit" style="background-color:#fff" class="aa-add-to-cart-btn">Add To Wishlist</button>
+                     </form>
                      </div>
                    </div>
                  </div>
@@ -194,7 +195,7 @@
                      
                  <li>
                    <figure>
-                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
                      <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
@@ -204,13 +205,12 @@
                       <button type="submit" style="width:100%;border:none" class="aa-add-card-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</button>
                       </form>
                       <figcaption>
-                       <h4 class="aa-product-title"><a href="#">{{$product->name}}</a></h4>
-                        <span class="aa-product-price">{{$product->price}}</span><span class="aa-product-price"><del>$65.50</del></span>
+                       <h4 class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{$product->name}}</a></h4>
+                        <span class="aa-product-price">${{$product->price}}</span>
                      </figcaption>
                    </figure>                     
                    <div class="aa-product-hvr-content">
                      <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                     <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                      <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                            
                    </div>
                    <!-- product badge -->
@@ -234,8 +234,8 @@
                              <div class="simpleLens-gallery-container" id="demo-1">
                                <div class="simpleLens-container">
                                    <div class="simpleLens-big-image-container">
-                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/view-slider/large/polo-shirt-1.png">
-                                           <img src="{{ asset('frontend') }}/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png">
+                                           <img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image">
                                        </a>
                                    </div>
                                </div>
@@ -251,17 +251,20 @@
                                <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                              </div>
                              <p>{{$product->details}}</p>
-                             <h4>Size</h4>
-                             <div class="aa-prod-view-size">
-                               <a href="#">S</a>
-                               <a href="#">M</a>
-                               <a href="#">L</a>
-                               <a href="#">XL</a>
+                             <h4>Rating</h4>
+                             <div class="aa-product-rating">
+                               @for($i=0;$i<5;$i++)
+                                 @if ($i < $product->rating)
+                                     <span style="color:#ff6600" class="fa fa-star"></span>
+                                 @else
+                                     <span style="color:#ff6600" class="fa fa-star-o"></span>
+                                 @endif
+                               @endfor
                              </div>
                              <div class="aa-prod-quantity">
 
                                <p class="aa-prod-category">
-                                 Category: <a href="#">{{$product->category->name}}</a>
+                                 Category: <a href="{{route('shop.index', ['category' => $product->category->name])}}">{{$product->category->name}}</a>
                                </p>
                              </div>
                              <div class="aa-prod-view-bottom">

@@ -22,10 +22,10 @@
               <div class="col-md-5 no-padding">                
                 <div class="aa-promo-left">
                   <div class="aa-promo-banner">                    
-                    <img src="{{ asset('frontend') }}/img/promo-banner-1.jpg" alt="img">                    
+                    <img src="{{ asset('frontend') }}/img/carusel/promo-banner-women.jpg" alt="img">                    
                     <div class="aa-prom-content">
-                      <span>75% Off</span>
-                      <h4><a href="#">For Women</a></h4>                      
+                      <span>New Arrivals</span>
+                      <h4><a href="{{route('shop.index', ['category' => 'women'])}}">Women</a></h4>                      
                     </div>
                   </div>
                 </div>
@@ -35,37 +35,37 @@
                 <div class="aa-promo-right">
                   <div class="aa-single-promo-right">
                     <div class="aa-promo-banner">                      
-                      <img src="{{ asset('frontend') }}/img/promo-banner-3.jpg" alt="img">                      
+                      <img src="{{ asset('frontend') }}/img/carusel/promo-banner-men.jpg" alt="img">                      
                       <div class="aa-prom-content">
                         <span>Exclusive Item</span>
-                        <h4><a href="#">For Men</a></h4>                        
+                        <h4><a href="{{route('shop.index', ['category' => 'men'])}}">Men</a></h4>                        
                       </div>
                     </div>
                   </div>
                   <div class="aa-single-promo-right">
                     <div class="aa-promo-banner">                      
-                      <img src="{{ asset('frontend') }}/img/promo-banner-2.jpg" alt="img">                      
-                      <div class="aa-prom-content">
-                        <span>Sale Off</span>
-                        <h4><a href="#">On Shoes</a></h4>                        
-                      </div>
-                    </div>
-                  </div>
-                  <div class="aa-single-promo-right">
-                    <div class="aa-promo-banner">                      
-                      <img src="{{ asset('frontend') }}/img/promo-banner-4.jpg" alt="img">                      
+                      <img src="{{ asset('frontend') }}/img/carusel/promo-banner-sports.jpg" alt="img">                      
                       <div class="aa-prom-content">
                         <span>New Arrivals</span>
-                        <h4><a href="#">For Kids</a></h4>                        
+                        <h4><a href="{{route('shop.index', ['category' => 'sports'])}}">Sports</a></h4>                        
                       </div>
                     </div>
                   </div>
                   <div class="aa-single-promo-right">
                     <div class="aa-promo-banner">                      
-                      <img src="{{ asset('frontend') }}/img/promo-banner-5.jpg" alt="img">                      
+                      <img src="{{ asset('frontend') }}/img/carusel/promo-banner-electronics.jpg" alt="img">                      
                       <div class="aa-prom-content">
-                        <span>25% Off</span>
-                        <h4><a href="#">For Bags</a></h4>                        
+                        <span>New Arrivals</span>
+                        <h4><a href="{{route('shop.index', ['category' => 'electronics'])}}">Electronics</a></h4>                        
+                      </div>
+                    </div>
+                  </div>
+                  <div class="aa-single-promo-right">
+                    <div class="aa-promo-banner">                      
+                      <img src="{{ asset('frontend') }}/img/carusel/promo-banner-perfumes.jpg" alt="img">                      
+                      <div class="aa-prom-content">
+                        <span>Comming soon</span>
+                        <h4><a href="">Perfumes</a></h4>                        
                       </div>
                     </div>
                   </div>
@@ -106,7 +106,7 @@
                             @foreach ($category->products->take(8) as $product)
                             <li>
                               <figure>
-                                <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                                <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="{{$product->slug}} img"></a>
                                 {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                                 <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                                   @csrf
@@ -119,7 +119,7 @@
                                
                                   <figcaption>
                                   <h4 title="{{$product->name}}" class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{\Str::limit($product->name, 30)}}</a></h4>
-                                  <span class="aa-product-price">${{$product->price}}</span><span class="aa-product-price"><del>$65.50</del></span>
+                                  <span class="aa-product-price">${{$product->price}}</span>
                                 </figcaption>
                               </figure>                        
                               <div class="aa-product-hvr-content">
@@ -133,8 +133,6 @@
                                   <button style="background-color:#fff;border:none;width:36px;height:32px;;" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" type="submit"><span class="fa fa-heart-o"></span></button>
                                </form>
 
-
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                                 <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                          
                               </div>
                               <!-- product badge -->
@@ -143,7 +141,7 @@
                             @endforeach
                     
                           </ul>
-                          <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                          <a class="aa-browse-btn" href="{{route('shop.index', ['category' => $product->category->name])}}">Browse more Product <span class="fa fa-long-arrow-right"></span></a>
                         </div>
 
                         @endforeach
@@ -169,8 +167,8 @@
                                     <div class="simpleLens-gallery-container" id="demo-1">
                                       <div class="simpleLens-container">
                                           <div class="simpleLens-big-image-container">
-                                              <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/view-slider/large/polo-shirt-1.png">
-                                                  <img src="{{ asset('frontend') }}/img/view-slider/medium/polo-shirt-1.png" class="simpleLens-big-image">
+                                              <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png">
+                                                  <img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image">
                                               </a>
                                           </div>
                                       </div>
@@ -186,17 +184,27 @@
                                       <p class="aa-product-avilability">Avilability: <span>In stock</span></p>
                                     </div>
                                     <p>{{$product->details}}</p>
-                                    <h4>Size</h4>
+                                    {{-- <h4>Size</h4>
                                     <div class="aa-prod-view-size">
                                       <a href="#">S</a>
                                       <a href="#">M</a>
                                       <a href="#">L</a>
                                       <a href="#">XL</a>
+                                    </div> --}}
+                                    <h4>Rating</h4>
+                                    <div class="aa-product-rating">
+                                      @for($i=0;$i<5;$i++)
+                                        @if ($i < $product->rating)
+                                            <span style="color:#ff6600" class="fa fa-star"></span>
+                                        @else
+                                            <span style="color:#ff6600" class="fa fa-star-o"></span>
+                                        @endif
+                                      @endfor
                                     </div>
                                     <div class="aa-prod-quantity">
 
                                       <p class="aa-prod-category">
-                                        Category: <a href="#">{{$product->category->name}}</a>
+                                        Category: <a href="{{route('shop.index', ['category' => $product->category->name])}}">{{$product->category->name}}</a>
                                       </p>
                                     </div>
                                     <div class="aa-prod-view-bottom">
@@ -209,7 +217,7 @@
                                         <input type="hidden" name="weight" value="{{$product->weight}}">
                                         <button type="submit" style="background-color:#fff" class="aa-add-to-cart-btn">Add To Cart</button>
                                      </form>
-                                      <a href="{{ route('shop.show', $product->slug)}}  " class="aa-add-to-cart-btn">View Details</a>
+                                      <a href="{{ route('shop.show', $product->slug)}}" class="aa-add-to-cart-btn">View Details</a>
                                     </div>
                                   </div>
                                 </div>
@@ -237,7 +245,7 @@
         <div class="col-md-12">        
           <div class="row">
             <div class="aa-banner-area">
-            <a href="#"><img src="{{ asset('frontend') }}/img/fashion-banner.jpg" alt="fashion banner img"></a>
+            <a href="{{ route('shop.index')}}"><img src="{{ asset('frontend') }}/img/carusel/fashion-banner.jpg" alt="fashion banner img"></a>
           </div>
           </div>
         </div>
@@ -267,16 +275,15 @@
                     <!-- start single product item -->
                     <li>
                       <figure>
-                        <a class="aa-product-img" href="#"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                        <a class="aa-product-img" href="#"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/man-model-1.png" alt="polo shirt img"></a>
                         <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a>
                          <figcaption>
-                          <h4 class="aa-product-title"><a href="#">Polo T-Shirt</a></h4>
-                          <span class="aa-product-price">$45.50</span><span class="aa-product-price"><del>$65.50</del></span>
+                          <h4 class="aa-product-title"><a href="#">ssst</a></h4>
+                          <span class="aa-product-price">$45.50</span>
                         </figcaption>
                       </figure>                     
                       <div class="aa-product-hvr-content">
                         <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
-                        <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                         <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#quick-view-modal"><span class="fa fa-search"></span></a>                            
                       </div>
                       <!-- product badge -->
@@ -295,7 +302,7 @@
                        
                    <li>
                     <figure>
-                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
                       {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                       <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                         @csrf
@@ -308,7 +315,7 @@
                      
                         <figcaption>
                         <h4 title="{{$product->name}}" class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{\Str::limit($product->name, 30)}}</a></h4>
-                        <span class="aa-product-price">${{$product->price}}</span><span class="aa-product-price"><del>$65.50</del></span>
+                        <span class="aa-product-price">${{$product->price}}</span>
                       </figcaption>
                     </figure>                        
                     <div class="aa-product-hvr-content">
@@ -322,8 +329,6 @@
                         <button style="background-color:#fff;border:none;width:36px;height:32px;;" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" type="submit"><span class="fa fa-heart-o"></span></button>
                      </form>
 
-
-                      <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                       <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                          
                     </div>
                     <!-- product badge -->
@@ -345,7 +350,7 @@
                        
                     <li>
                      <figure>
-                       <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img src="{{ asset('frontend') }}/img/man/polo-shirt-2.png" alt="polo shirt img"></a>
+                       <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
                        {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                        <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                          @csrf
@@ -358,7 +363,7 @@
                       
                          <figcaption>
                          <h4 title="{{$product->name}}" class="aa-product-title"><a href="{{ route('shop.show', $product->slug)}}">{{\Str::limit($product->name, 30)}}</a></h4>
-                         <span class="aa-product-price">${{$product->price}}</span><span class="aa-product-price"><del>$65.50</del></span>
+                         <span class="aa-product-price">${{$product->price}}</span>
                        </figcaption>
                      </figure>                        
                      <div class="aa-product-hvr-content">
@@ -373,7 +378,6 @@
                       </form>
  
  
-                       <a href="#" data-toggle="tooltip" data-placement="top" title="Compare"><span class="fa fa-exchange"></span></a>
                        <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                          
                      </div>
                      <!-- product badge -->
