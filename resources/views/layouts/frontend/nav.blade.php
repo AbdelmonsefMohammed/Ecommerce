@@ -50,7 +50,37 @@
                   <li class="hidden-xs"><a href="{{route('wishlist.index')}}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{route('cart.index')}}">My Cart</a></li>
                   <li class="hidden-xs"><a href="{{route('checkout.index')}}">Checkout</a></li>
-                  <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+
+                  @guest
+                    <li class="hidden-xs"><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
+
+                    @if (Route::has('register'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    </li>
+                    @endif
+                  @else
+                  <li class="dropdown">
+                    <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                      {{ Auth::user()->name }}
+                      <span class="caret"></span>
+                    </a>
+                    <ul style="min-width: 0;" class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                      <li style="padding: 0 7px;"><a style="border:none;" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                         {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                    </form>
+                    
+                    </li>
+                    </ul>
+                  </li>
+                  @endguest
+
+
                 </ul>
               </div>
             </div>

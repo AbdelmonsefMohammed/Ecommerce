@@ -35,27 +35,6 @@
                 <div class="checkout-left">
                   <div class="panel-group" id="accordion">
 
-                    <!-- Login section -->
-                    {{-- <div class="panel panel-default aa-checkout-login">
-                      <div class="panel-heading">
-                        <h4 class="panel-title">
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                            Client Login 
-                          </a>
-                        </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat voluptatibus modi pariatur qui reprehenderit asperiores fugiat deleniti praesentium enim incidunt.</p>
-                          <input type="text" placeholder="Username or email">
-                          <input type="password" placeholder="Password">
-                          <button type="submit" class="aa-browse-btn">Login</button>
-                          <label for="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-                          <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
-                        </div>
-                      </div>
-                    </div> --}}
-
                     <!-- Shipping Address -->
                     @csrf
                     <div class="panel panel-default aa-checkout-billaddress">
@@ -71,14 +50,16 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input type="text" name="email" placeholder="Email Address" value="{{ old('email') }}" required>
+                                {{-- <input type="text" name="email" placeholder="Email Address" value="{{ old('email') }}" required> --}}
+                                <input type="text" name="email" placeholder="Email Address" value="{{ auth()->user()->email }}" readonly>
                               </div>                             
                             </div>                            
                           </div> 
                          <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input name="name" type="text" placeholder="Name" value="{{ old('name') }}" required>
+                                {{-- <input name="name" type="text" placeholder="Name" value="{{ old('name') }}" required> --}}
+                                <input name="name" type="text" placeholder="Name" value="{{ auth()->user()->name }}" readonly>
                               </div>                             
                             </div>
                           </div> 
