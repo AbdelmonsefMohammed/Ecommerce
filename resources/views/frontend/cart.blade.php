@@ -65,7 +65,7 @@
                          </form>
 
                          </td>
-                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/products/{{$item->model->slug}}.png" alt="img"></a></td>
+                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('storage/' . $item->model->image) }}" alt="img"></a></td>
                          <td><a class="aa-cart-title" href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></td>
                          <td>${{$item->model->price}}</td>
                          <td><input class="aa-cart-quantity quantity" type="number" data-id="{{ $item->rowId }}" value="{{$item->qty}}"></td>  

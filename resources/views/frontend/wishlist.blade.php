@@ -53,7 +53,7 @@
                                 <button title="Delete" type="submit" style="background-color:#F5F5F5; border:none;" class="remove"><fa class="fa fa-close"></fa></button>
                              </form>
                          </td>
-                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/products/{{$item->model->slug}}.png" alt="img"></a></td>
+                         <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('storage/' . $item->model->image) }}" alt="img"></a></td>
                          <td><a class="aa-cart-title" href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></td>
                          <td>${{$item->model->price}}</td>
                          <td>In Stock</td>

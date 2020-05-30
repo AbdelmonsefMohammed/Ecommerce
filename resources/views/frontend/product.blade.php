@@ -37,7 +37,7 @@
                    <div class="aa-product-view-slider">                                
                      <div id="demo-1" class="simpleLens-gallery-container">
                        <div class="simpleLens-container">
-                         <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-lens-image"><img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image"></a></div>
+                         <div class="simpleLens-big-image-container"><a data-lens-image="{{ asset('storage/' . $product->image) }}" class="simpleLens-lens-image"><img src="{{ asset('storage/' . $product->image) }}" class="simpleLens-big-image"></a></div>
                        </div>
                      </div>
                    </div>
@@ -108,7 +108,7 @@
                <!-- Tab panes -->
                <div class="tab-content">
                  <div class="tab-pane fade in active" id="description">
-                   <p>{{$product->description}}</p>
+                   <p>{!!$product->description!!}</p>
  
                  </div>
                  <div class="tab-pane fade " id="review">
@@ -195,7 +195,7 @@
                      
                  <li>
                    <figure>
-                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
+                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                      <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
@@ -234,8 +234,8 @@
                              <div class="simpleLens-gallery-container" id="demo-1">
                                <div class="simpleLens-container">
                                    <div class="simpleLens-big-image-container">
-                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png">
-                                           <img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image">
+                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('storage/' . $product->image) }}">
+                                           <img src="{{ asset('storage/' . $product->image) }}" class="simpleLens-big-image">
                                        </a>
                                    </div>
                                </div>

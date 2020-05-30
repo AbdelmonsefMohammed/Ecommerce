@@ -106,7 +106,7 @@
                             @foreach ($category->products->take(8) as $product)
                             <li>
                               <figure>
-                                <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="{{$product->slug}} img"></a>
+                                <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="{{$product->slug}} img"></a>
                                 {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                                 <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                                   @csrf
@@ -167,8 +167,8 @@
                                     <div class="simpleLens-gallery-container" id="demo-1">
                                       <div class="simpleLens-container">
                                           <div class="simpleLens-big-image-container">
-                                              <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png">
-                                                  <img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image">
+                                              <a class="simpleLens-lens-image" data-lens-image="{{ asset('storage/' . $product->image) }}">
+                                                  <img src="{{ asset('storage/' . $product->image) }}" class="simpleLens-big-image">
                                               </a>
                                           </div>
                                       </div>
@@ -302,7 +302,7 @@
                        
                    <li>
                     <figure>
-                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
+                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                       {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                       <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                         @csrf
@@ -337,7 +337,7 @@
                   </li>
                     @endforeach             
                   </ul>
-                  <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                  <a class="aa-browse-btn" href="{{route('shop.index')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                 </div>
                 <!-- / featured product category -->
 
@@ -350,7 +350,7 @@
                        
                     <li>
                      <figure>
-                       <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
+                       <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                        {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                        <form method="POST" style="display:inline" action="{{route('cart.store')}}">
                          @csrf
@@ -388,7 +388,7 @@
                     
                     
                   </ul>
-                   <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
+                   <a class="aa-browse-btn" href="{{route('shop.index')}}">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
                 </div>
                 <!-- / latest product category -->              
               </div>

@@ -21,11 +21,12 @@ class CreateProductsTable extends Migration
             $table->integer('price');
             $table->integer('rating')->default(0);
             $table->integer('weight')->nullable();
+            $table->string('image')->nullable();
             $table->text('description');
             $table->boolean('featured')->default(false);
 
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade');
             $table->timestamps();
         });
     }

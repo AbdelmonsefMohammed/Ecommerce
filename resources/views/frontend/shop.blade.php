@@ -19,11 +19,13 @@
 
                   
                    <label for="">Sort by price</label>
+                   <form style="display:inline-block;margin-right:10px" action="">
                    <select name="">
-                     <option value="1" selected="Default"></option>
+                     <option value="1" selected="Default">Default</option>
                      <option value="2"><a href="#">Low to High</a></option>
                      <option value="3"><a href="#">High to Low</a></option>
                    </select>
+                  </form>
 
 
                    <label for="">Show</label>
@@ -46,7 +48,7 @@
                      
                  <li>
                    <figure>
-                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" alt="polo shirt img"></a>
+                     <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                      {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
                      <form method="POST" class="aa-add-card-btn" action="{{route('cart.store')}}">
                       @csrf
@@ -99,8 +101,8 @@
                              <div class="simpleLens-gallery-container" id="demo-1">
                                <div class="simpleLens-container">
                                    <div class="simpleLens-big-image-container">
-                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('frontend') }}/img/products/{{$product->slug}}.png">
-                                           <img src="{{ asset('frontend') }}/img/products/{{$product->slug}}.png" class="simpleLens-big-image">
+                                       <a class="simpleLens-lens-image" data-lens-image="{{ asset('storage/' . $product->image) }}">
+                                           <img src="{{ asset('storage/' . $product->image) }}" class="simpleLens-big-image">
                                        </a>
                                    </div>
                                </div>

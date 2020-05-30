@@ -90,7 +90,7 @@
                     @foreach (Cart::content()->take(3) as $item)
                         
                     <li>
-                      <a class="aa-cartbox-img" href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('frontend') }}/img/products/{{$item->model->slug}}.png" alt="img"></a>
+                      <a class="aa-cartbox-img" href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('storage/' . $item->model->image) }}" alt="img"></a>
                       <div class="aa-cartbox-info">
                         <h4><a href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></h4>
                         <p>{{$item->qty}} x ${{$item->model->price}}</p>
@@ -112,7 +112,7 @@
                       </span>
                     </li>
                   </ul>
-                  <a class="aa-cartbox-checkout aa-primary-btn" href="checkout.html">Checkout</a>
+                  <a class="aa-cartbox-checkout aa-primary-btn" href="{{route('checkout.index')}}">Checkout</a>
                 </div>
                 @endif
               </div>
