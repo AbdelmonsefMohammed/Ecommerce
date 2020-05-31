@@ -31,7 +31,7 @@ Route::post('/wishlist/cart/{product}','WishlistController@switchToCart')->name(
 Route::post('/coupon', 'CouponsController@store')->name('coupon.store');
 Route::delete('/coupon', 'CouponsController@destroy')->name('coupon.destroy');
 
-Route::get('/checkout','CheckoutController@index')->name('checkout.index')->middleware('auth');
+Route::get('/checkout','CheckoutController@index')->name('checkout.index');
 Route::post('/checkout','CheckoutController@store')->name('checkout.store');
 
 Route::get('/empty', function(){

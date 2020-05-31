@@ -50,16 +50,23 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                {{-- <input type="text" name="email" placeholder="Email Address" value="{{ old('email') }}" required> --}}
-                                <input type="text" name="email" placeholder="Email Address" value="{{ auth()->user()->email }}" readonly>
+                                @auth
+                                  <input type="text" name="email" placeholder="Email Address" value="{{ auth()->user()->email }}" readonly>
+                                @else
+                                  <input type="text" name="email" placeholder="Email Address" value="{{ old('email') }}" required>
+                                @endauth
+
                               </div>                             
                             </div>                            
                           </div> 
                          <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                {{-- <input name="name" type="text" placeholder="Name" value="{{ old('name') }}" required> --}}
-                                <input name="name" type="text" placeholder="Name" value="{{ auth()->user()->name }}" readonly>
+                                @auth
+                                  <input name="name" type="text" placeholder="Name" value="{{ auth()->user()->name }}" readonly>
+                                @else
+                                  <input name="name" type="text" placeholder="Name" value="{{ old('name') }}" required>
+                                @endauth
                               </div>                             
                             </div>
                           </div> 
@@ -111,7 +118,7 @@
                           <div class="row">
                             <div class="col-md-12">
                               <div class="aa-checkout-single-bill">
-                                <input id="name_on_card" type="text" placeholder="Name on card" value="{{ old('name_on_card') }}" required>
+                                <input id="name_on_card" name="name_on_card" type="text" placeholder="Name on card" value="{{ old('name_on_card') }}" required>
                               </div>                             
                             </div>                            
                           </div> 

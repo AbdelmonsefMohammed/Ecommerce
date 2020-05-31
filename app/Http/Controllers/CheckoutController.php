@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\OrderProduct;
 use Illuminate\Http\Request;
 use App\Http\Requests\CheckoutRequest;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -45,6 +47,7 @@ class CheckoutController extends Controller
     {
         $tax = config('cart.tax') / 100;
         $discount = session()->get('coupon')['discount'] ?? 0;
+        $code = session()->get('coupon')['name'] ?? null;
         $newSubtotal = (Cart::subtotal() - $discount);
         $newTax = $newSubtotal * $tax;
         $newTotal = $newSubtotal + $newTax;
@@ -66,10 +69,75 @@ class CheckoutController extends Controller
                     'discount' => collect(session()->get('coupon'))->toJson(),
                 ],
             ]);
+            //insert into order table
+            
+            $order = Order::create([
+                'user_id'               =>  auth()->user() ? auth()->user()->id : null,
+                'billing_email'         => $request->email,
+                'billing_name'          => $request->name,
+                'billing_address'       => $request->address,
+                'billing_city'          => $request->city,
+                'billing_town'          => $request->town,
+                'billing_postalcode'    => $request->postalcode,
+                'billing_phone'         => $request->phone,
+                'billing_name_on_card'  => $request->name_on_card,
+                'billing_discount'      => $discount,
+                'billing_discount_code' => $code,
+                'billing_subtotal'      => $newSubtotal,
+                'billing_tax'           => $newTax,
+                'billing_total'         => $newTotal,
+                'error'                 => null,
+
+            ]);
+
+            //insert into prder_product table
+
+            foreach (Cart::content() as $item) {
+                OrderProduct::create([
+                    'order_id'    => $order->id,
+                    'product_id'  => $item->model->id,
+                    'quantity'    => $item->qty,
+                ]);
+            }
+
+            // Successful
             Cart::instance('default')->destroy();
             session()->forget('coupon');
             return redirect()->route('welcome')->with('success','Thank you! Your payment has been successfully accepted!');
         } catch (CardErrorException $e) {
+
+            //insert into order table
+            
+            $order = Order::create([
+                'user_id'               =>  auth()->user() ? auth()->user()->id : null,
+                'billing_email'         => $request->email,
+                'billing_name'          => $request->name,
+                'billing_address'       => $request->address,
+                'billing_city'          => $request->city,
+                'billing_town'          => $request->town,
+                'billing_postalcode'    => $request->postalcode,
+                'billing_phone'         => $request->phone,
+                'billing_name_on_card'  => $request->name_on_card,
+                'billing_discount'      => $discount,
+                'billing_discount_code' => $code,
+                'billing_subtotal'      => $newSubtotal,
+                'billing_tax'           => $newTax,
+                'billing_total'         => $newTotal,
+                'error'                 => $e->getMessage(),
+
+            ]);
+
+            //insert into prder_product table
+
+            foreach (Cart::content() as $item) {
+                OrderProduct::create([
+                    'order_id'    => $order->id,
+                    'product_id'  => $item->model->id,
+                    'quantity'    => $item->qty,
+                ]);
+            }
+
+
             return back()->with('errors', $e->getMessage());
         }
     }
