@@ -16,7 +16,6 @@
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><img src="{{ asset('frontend') }}/img/flag/french.jpg" alt="">FRENCH</a></li>
                       <li><a href="#"><img src="{{ asset('frontend') }}/img/flag/english.jpg" alt="">ENGLISH</a></li>
                     </ul>
                   </div>
@@ -31,22 +30,21 @@
                       <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                      <li><a href="#"><i class="fa fa-euro"></i>EURO</a></li>
-                      <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
+                      <li><a href="#"><i class="fa fa-usd"></i>USD</a></li>
                     </ul>
                   </div>
                 </div>
                 <!-- / currency -->
                 <!-- start cellphone -->
                 <div class="cellphone hidden-xs">
-                  <p><span class="fa fa-phone"></span>00-62-658-658</p>
+                  <p><span class="fa fa-phone"></span>00-56-658-658</p>
                 </div>
                 <!-- / cellphone -->
               </div>
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="account.html">My Account</a></li>
+                  <li><a href="#">My Account</a></li>
                   <li class="hidden-xs"><a href="{{route('wishlist.index')}}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{route('cart.index')}}">My Cart</a></li>
                   <li class="hidden-xs"><a href="{{route('checkout.index')}}">Checkout</a></li>
@@ -185,7 +183,7 @@
               @foreach ($allcategories as $category)
                 <li><a href="{{route('shop.index', ['category' => $category->name])}}">{{ucfirst(trans($category->name))}}</a></li>
               @endforeach  
-              <li><a href="contact.html">Contact</a></li>
+              <li><a href="#">Contact</a></li>
 
             </ul>
           </div><!--/.nav-collapse -->

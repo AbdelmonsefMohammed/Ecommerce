@@ -65,7 +65,7 @@
                       <img src="{{ asset('frontend') }}/img/carusel/promo-banner-perfumes.jpg" alt="img">                      
                       <div class="aa-prom-content">
                         <span>Comming soon</span>
-                        <h4><a href="">Perfumes</a></h4>                        
+                        <h4><a>Perfumes</a></h4>                        
                       </div>
                     </div>
                   </div>
