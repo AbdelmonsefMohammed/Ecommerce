@@ -34,4 +34,20 @@ class ShopController extends Controller
         $mightalsolike = Product::where('slug', '!=' ,$slug)->inRandomOrder()->take(8)->get();
         return view('frontend.product',compact('product','mightalsolike'));
     }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'query' => 'required|min:3', 
+           ]);
+        $query = $request->input('query');
+        // $products = Product::where('name', 'like', "%$query%")
+        //                     ->orWhere('slug', 'like', "%$query%")
+        //                     ->orWhere('details', 'like', "%$query%")
+        //                     ->orWhere('description', 'like', "%$query%")
+        //                     ->paginate(12);
+
+        $products = Product::search($query)->paginate(12);
+        return view('frontend.search-results', compact('products'));
+    }
 }

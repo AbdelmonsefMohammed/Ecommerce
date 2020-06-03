@@ -19,12 +19,13 @@
 
                   
                    <label for="">Sort by price</label>
-                   <form style="display:inline-block;margin-right:10px" action="">
-                   <select name="">
-                     <option value="1" selected="Default">Default</option>
-                     <option value="2"><a href="#">Low to High</a></option>
-                     <option value="3"><a href="#">High to Low</a></option>
+                   <form id="orderby" style="display:inline-block;margin-right:10px" action="{{route('search')}}" method="GET">
+                   <select name="order"  onchange="submitform()">
+                     <option  selected="Default">Default</option>
+                     <option value="lowtohigh">Low to High</option>
+                     <option value="hightolow"  >High to Low</option> 
                    </select>
+
                   </form>
 
 
@@ -175,6 +176,10 @@
 
 @section('extra-js')
     <script>
+    function submitform()
+    {
+    document.getElementById("orderby").submit();
+    }
       jQuery(function(){
 
        var skipSlider = document.getElementById('skipstep');

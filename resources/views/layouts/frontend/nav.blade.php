@@ -145,14 +145,16 @@
                 @endif
               </div>
               <!-- / cart box -->
+
               <!-- search box -->
               <div class="aa-search-box">
-                <form action="">
-                  <input type="text" name="" id="" placeholder="Search here ex. 'man' ">
+                <form action="{{route('search')}}" method="GET">
+                  <input type="text" name="query" value="{{request()->input('query')}}" placeholder="Search here ex. 'man' ">
                   <button type="submit"><span class="fa fa-search"></span></button>
                 </form>
               </div>
-              <!-- / search box -->             
+              <!-- / search box -->  
+
             </div>
           </div>
         </div>
