@@ -263,14 +263,14 @@
             <div class="aa-popular-category-area">
               <!-- start prduct navigation -->
              <ul class="nav nav-tabs aa-products-tab">
-                <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li>
-                <li><a href="#featured" data-toggle="tab">Featured</a></li>
+                {{-- <li class="active"><a href="#popular" data-toggle="tab">Popular</a></li> --}}
+                <li class="active"><a href="#featured" data-toggle="tab">Featured</a></li>
                 <li><a href="#latest" data-toggle="tab">Latest</a></li>                    
               </ul>
               <!-- Tab panes -->
               <div class="tab-content">
                 <!-- Start men popular category -->
-                <div class="tab-pane fade in active" id="popular">
+                {{-- <div class="tab-pane fade in active" id="popular">
                   <ul class="aa-product-catg aa-popular-slider">
                     <!-- start single product item -->
                     <li>
@@ -292,11 +292,11 @@
                                                                              
                   </ul>
                   <a class="aa-browse-btn" href="#">Browse all Product <span class="fa fa-long-arrow-right"></span></a>
-                </div>
+                </div> --}}
                 <!-- / popular product category -->
                 
                 <!-- start featured product category -->
-                <div class="tab-pane fade" id="featured">
+                <div class="tab-pane fade in active" id="featured">
                  <ul class="aa-product-catg aa-featured-slider">
                    @foreach ($featuredproducts as $product)
                        
