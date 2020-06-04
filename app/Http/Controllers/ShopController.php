@@ -11,20 +11,42 @@ class ShopController extends Controller
 {
     public function index()
     {
-        if(request()->tag){
-            $products = Product::with('tags')->whereHas('tags', function($query){
-                $query->where('name', request()->tag);
-            })->paginate(12);
-            $pagename = optional(Tag::where('name', request()->tag)->first())->name;
-        }elseif(request()->category){
+        if(request()->category){
             $products = Product::with('category')->whereHas('category', function($query){
                 $query->where('name', request()->category);
-            })->paginate(12);
+            });
             $pagename = optional(Category::where('name', request()->category)->first())->name;
         }else{
-            $products = Product::inRandomOrder()->paginate(12);
+            $products = Product::inRandomOrder();
             $pagename = 'Products';
         }
+
+        //if there is tag
+        if(request()->tag){
+            $products = $products->whereHas('tags', function($query){
+                $query->where('name', request()->tag);
+            });
+        }else{
+            $products = $products;
+        }
+
+        // if there is sorting from high to low or from low to high
+        if (request()->sort == 'low_high') {
+            $products = $products->orderBy('price');
+        } elseif (request()->sort == 'high_low') {
+            $products = $products->orderBy('price', 'desc');
+        } else {
+            $products = $products;
+        }
+
+        // if there is pagination
+        if(request()->paginate){
+            $pagination = request()->paginate;
+            $products = $products->paginate($pagination);
+        }else {
+            $products = $products->paginate(12);
+        }
+        
         return view('frontend.shop',compact('products','pagename'));
     }
 
@@ -41,12 +63,6 @@ class ShopController extends Controller
             'query' => 'required|min:3', 
            ]);
         $query = $request->input('query');
-        // $products = Product::where('name', 'like', "%$query%")
-        //                     ->orWhere('slug', 'like', "%$query%")
-        //                     ->orWhere('details', 'like', "%$query%")
-        //                     ->orWhere('description', 'like', "%$query%")
-        //                     ->paginate(12);
-
         $products = Product::search($query)->paginate(12);
         return view('frontend.search-results', compact('products'));
     }

@@ -44,7 +44,7 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="#">My Account</a></li>
+                  {{-- <li><a href="#">My Account</a></li> --}}
                   <li class="hidden-xs"><a href="{{route('wishlist.index')}}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{route('cart.index')}}">My Cart</a></li>
                   <li class="hidden-xs"><a href="{{route('checkout.index')}}">Checkout</a></li>
@@ -185,7 +185,7 @@
               @foreach ($allcategories as $category)
                 <li><a href="{{route('shop.index', ['category' => $category->name])}}">{{ucfirst(trans($category->name))}}</a></li>
               @endforeach  
-              <li><a href="#">Contact</a></li>
+              <li><a href="{{route('contact.index')}}">Contact</a></li>
 
             </ul>
           </div><!--/.nav-collapse -->

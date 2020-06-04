@@ -18,23 +18,32 @@
                <div class="aa-product-catg-head-left">
 
                   
-                   <label for="">Sort by price</label>
-                   <form id="orderby" style="display:inline-block;margin-right:10px" action="{{route('search')}}" method="GET">
-                   <select name="order"  onchange="submitform()">
-                     <option  selected="Default">Default</option>
-                     <option value="lowtohigh">Low to High</option>
-                     <option value="hightolow"  >High to Low</option> 
-                   </select>
+                   <span for="">Sort by price</span>
+                  
+                    <div  class="dropdown" style="display:inline-block;background-color:#fff;border:1px solid;margin-right:15px">
+                      <a class="btn dropdown-toggle" style="padding:0 15px 0 0" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{request()->sort? request()->sort : 'Default'}}
+                        <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="{{route('shop.index', ['category'=> request()->category, 'tag' => request()->tag, 'sort' => 'low_high', 'paginate' => request()->paginate])}}">Low to High</a></li>
+                        <li><a href="{{route('shop.index', ['category'=> request()->category, 'tag' => request()->tag, 'sort' => 'high_low', 'paginate' => request()->paginate])}}">High to Low</a></li>
+                      </ul>
+                    </div>
 
-                  </form>
 
-
-                   <label for="">Show</label>
-                   <select name="">
-                     <option value="1" selected="12">12</option>
-                     <option value="2">24</option>
-                     <option value="3">36</option>
-                   </select>
+                    <span for="">show</span>
+                    <div class="dropdown" style="display:inline-block;background-color:#fff;border:1px solid">
+                      <a class="btn dropdown-toggle" style="padding:0 15px 0 0" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{request()->paginate? request()->paginate : 12}}
+                        <span class="caret"></span>
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a href="{{route('shop.index', ['category'=> request()->category, 'tag' => request()->tag, 'sort' => request()->sort, 'paginate' => 12])}}">12</a></li>
+                        <li><a href="{{route('shop.index', ['category'=> request()->category, 'tag' => request()->tag, 'sort' => request()->sort, 'paginate' => 24])}}">24</a></li>
+                        <li><a href="{{route('shop.index', ['category'=> request()->category, 'tag' => request()->tag, 'sort' => request()->sort, 'paginate' => 36])}}">36</a></li>
+                      </ul>
+                    </div>
 
                </div>
                <div class="aa-product-catg-head-right">

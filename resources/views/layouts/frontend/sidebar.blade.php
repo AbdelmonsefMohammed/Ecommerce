@@ -6,7 +6,7 @@
         <ul class="aa-catg-nav">
           <li><a href="{{route('shop.index')}}">All Categories</a></li>
           @foreach ($allcategories as $category)
-            <li><a href="{{route('shop.index', ['category' => $category->name])}}">{{ucfirst(trans($category->name))}}</a></li>
+            <li><a href="{{route('shop.index', ['category' => $category->name, 'paginate' => request()->paginate])}}">{{ucfirst(trans($category->name))}}</a></li>
           @endforeach  
         </ul>
       </div>
@@ -15,13 +15,13 @@
         <h3>Tags</h3>
         <div class="tag-cloud">
           @foreach ($tags as $tag)
-          <a href="{{route('shop.index', ['tag' => $tag->name])}}">{{ucfirst(trans($tag->name))}}</a>
+          <a href="{{route('shop.index', ['category'=> request()->category, 'tag' => $tag->name, 'sort'=> request()->sort, 'paginate' => request()->paginate])}}">{{ucfirst(trans($tag->name))}}</a>
         @endforeach  
 
         </div>
       </div>
       <!-- single sidebar -->
-      <div class="aa-sidebar-widget">
+      {{-- <div class="aa-sidebar-widget">
         <h3>Shop By Price</h3>              
         <!-- price range -->
         <div class="aa-sidebar-price-range">
@@ -34,7 +34,7 @@
          </form>
         </div>              
 
-      </div>
+      </div> --}}
 
       <!-- single sidebar -->
       {{-- <div class="aa-sidebar-widget">
