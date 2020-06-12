@@ -6,8 +6,8 @@
       <div class="row">
         <div class="col-md-12">
          <div class="aa-myaccount-area">         
-             <div class="row">
-               <div style="    left: 25%;" class="col-md-6">
+          <div class="row"  style="display: flex; justify-content: center;">
+            <div class="col-md-8 col-sm-8 col-xs-10">
                  <div class="aa-myaccount-login">
                  <h4>Register</h4>
                     <form class="aa-login-form" method="POST" action="{{ route('register') }}">

@@ -4,7 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">    
-    <title>Daily Shop | Home</title>
+    <title>My Elite Shop |   @yield('title')</title>
+    <link rel="shortcut icon" type="image/png" href="{{ asset('frontend') }}/img/favicon.png"/>
     
 <!-- Font awesome -->
     <link href="{{ asset('frontend') }}/css/font-awesome.css" rel="stylesheet">
@@ -166,6 +167,7 @@
   <!-- Price picker slider -->
   <script type="text/javascript" src="{{ asset('frontend') }}/js/nouislider.js"></script>
   <!-- Custom js -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
   <script src="{{ asset('frontend') }}/js/custom.js"></script> 
 
   @yield('extra-js')

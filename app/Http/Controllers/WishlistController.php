@@ -18,12 +18,18 @@ class WishlistController extends Controller
             return $cartItem->id == $request->id;
         });
         if($duplicates->isNotEmpty()){
-            return back()->with('info','Item exists in cart');
+            return response()->json([
+                'success' => false,
+                'message' => 'Item exists in Wishlist!'
+            ]);
         }
         Cart::instance('wishlist')->add($request->id, $request->name, 1, $request->price, $request->weight)->associate('App\Product');
 
+        return response()->json([
+            'success' => true,
+            'message' => 'Item added to Wishlist!',
 
-        return redirect()->back()->with('success','Item added to Wishlist');
+        ]);
     }
 
     public function destroy($id)

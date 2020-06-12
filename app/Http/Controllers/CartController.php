@@ -16,9 +16,10 @@ class CartController extends Controller
      */
     public function index()
     {
+        $subtotal =str_replace( ',', '', Cart::subtotal() );
         $tax = config('cart.tax') / 100;
         $discount = session()->get('coupon')['discount'] ?? 0;
-        $newSubtotal = (Cart::subtotal() - $discount);
+        $newSubtotal = ($subtotal - $discount);
         $newTax = $newSubtotal * $tax;
         $newTotal = $newSubtotal + $newTax;
         return view('frontend.cart',compact('discount','newSubtotal','newTax','newTotal'));
@@ -42,9 +43,15 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
+        
         Cart::add($request->id, $request->name, 1, $request->price, $request->weight)->associate('App\Product');
-
-        return redirect()->back()->with('success','Item added to your cart');
+        return response()->json([
+            'success' => true,
+            'message' => 'Item added to your cart!',
+            'counter' => Cart::instance('default')->count(),
+            'newTotal'=> Cart::total(),
+            // 'cartContent' => Cart::content()
+        ]);
     }
 
     /**

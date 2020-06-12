@@ -42,10 +42,10 @@ class CouponsController extends Controller
         if(!$coupon){
             return back()->with('errors', 'Invalide coupon code.');
         }
-
+        $subtotal =str_replace( ',', '', Cart::subtotal() );
         session()->put('coupon', [
             'name'  =>  $coupon->code,
-            'discount' => $coupon->discount(Cart::subtotal()),
+            'discount' => $coupon->discount($subtotal),
         ]);
 
         return back()->with('success', 'Coupon has been applied');

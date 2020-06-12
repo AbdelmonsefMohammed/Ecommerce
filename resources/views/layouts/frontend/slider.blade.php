@@ -7,31 +7,7 @@
             <!-- single slide item -->
             <li>
               <div class="seq-model">
-                <img data-seq src="{{ asset('frontend') }}/img/carusel/1.jpg" alt="Men slide img" />
-              </div>
-              <div class="seq-title">
-               <span data-seq>New Arrivals</span>                
-                <h2 data-seq>Men Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="{{route('shop.index')}}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            <!-- single slide item -->
-            <li>
-              <div class="seq-model">
-                <img data-seq src="{{ asset('frontend') }}/img/carusel/2.jpg" alt="Wristwatch slide img" />
-              </div>
-              <div class="seq-title">
-                <span data-seq>Comming Soon</span>                
-                <h2 data-seq>Wristwatch Collection</h2>                
-                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
-                <a data-seq href="{{route('shop.index')}}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
-              </div>
-            </li>
-            <!-- single slide item -->
-            <li>
-              <div class="seq-model">
-                <img data-seq src="{{ asset('frontend') }}/img/carusel/3.jpg" alt="Women Jeans slide img" />
+                <img data-seq src="{{ asset('frontend') }}/img/carusel/5.jpg" alt="Women Jeans slide img" />
               </div>
               <div class="seq-title">
                 <span data-seq>Comming Soon</span>                
@@ -39,7 +15,32 @@
                 <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
                 <a data-seq href="{{route('shop.index')}}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
               </div>
-            </li>                  
+            </li>   
+            <!-- single slide item -->
+            <li>
+              <div class="seq-model">
+                <img data-seq src="{{ asset('frontend') }}/img/carusel/6.jpg" alt="Men slide img" />
+              </div>
+              <div class="seq-title">
+               <span data-seq>New Arrivals</span>                
+                <h2 data-seq>Men Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="{{route('shop.index', ['category' => 'men'])}}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+            <!-- single slide item -->
+            <li>
+              <div class="seq-model">
+                <img data-seq src="{{ asset('frontend') }}/img/carusel/4.jpg" alt="Wristwatch slide img" />
+              </div>
+              <div class="seq-title">
+                <span data-seq>New Arrivals</span>                
+                <h2 data-seq>Women Collection</h2>                
+                <p data-seq>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, illum.</p>
+                <a data-seq href="{{route('shop.index', ['category' => 'women'])}}" class="aa-shop-now-btn aa-secondary-btn">SHOP NOW</a>
+              </div>
+            </li>
+               
           </ul>
         </div>
         <!-- slider navigation btn -->

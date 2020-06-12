@@ -3,6 +3,10 @@
 
 @extends('layouts.frontend.app')
 
+@section('title')
+    Home
+@endsection
+
 @section('content')
     @include('layouts.frontend.slider')    
 
@@ -108,7 +112,7 @@
                               <figure>
                                 <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="{{$product->slug}} img"></a>
                                 {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
-                                <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                                <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                                   @csrf
                                   <input type="hidden" name="id" value="{{$product->id}}">
                                   <input type="hidden" name="name" value="{{$product->name}}">
@@ -124,7 +128,7 @@
                               </figure>                        
                               <div class="aa-product-hvr-content">
                                 
-                                <form method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
+                                <form id="wishlist_form" method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
                                   @csrf
                                   <input type="hidden" name="id" value="{{$product->id}}">
                                   <input type="hidden" name="name" value="{{$product->name}}">
@@ -209,7 +213,7 @@
                                     </div>
                                     <div class="aa-prod-view-bottom">
                                       {{-- <a href="#" class="aa-add-to-cart-btn"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
-                                      <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                                      <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                                         @csrf
                                         <input type="hidden" name="id" value="{{$product->id}}">
                                         <input type="hidden" name="name" value="{{$product->name}}">
@@ -304,7 +308,7 @@
                     <figure>
                       <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                       {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
-                      <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                      <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                         @csrf
                         <input type="hidden" name="id" value="{{$product->id}}">
                         <input type="hidden" name="name" value="{{$product->name}}">
@@ -320,7 +324,7 @@
                     </figure>                        
                     <div class="aa-product-hvr-content">
                       
-                      <form method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
+                      <form id="wishlist_form" method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
                         @csrf
                         <input type="hidden" name="id" value="{{$product->id}}">
                         <input type="hidden" name="name" value="{{$product->name}}">
@@ -352,7 +356,7 @@
                      <figure>
                        <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                        {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
-                       <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                       <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                          @csrf
                          <input type="hidden" name="id" value="{{$product->id}}">
                          <input type="hidden" name="name" value="{{$product->name}}">
@@ -368,7 +372,7 @@
                      </figure>                        
                      <div class="aa-product-hvr-content">
                        
-                       <form method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
+                       <form id="wishlist_form" method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
                          @csrf
                          <input type="hidden" name="id" value="{{$product->id}}">
                          <input type="hidden" name="name" value="{{$product->name}}">
@@ -440,3 +444,5 @@
 
 
 @endsection
+
+

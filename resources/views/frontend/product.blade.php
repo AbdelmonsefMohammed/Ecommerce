@@ -1,4 +1,7 @@
 @extends('layouts.frontend.app')
+@section('title')
+    Product
+@endsection
 
 @section('content')   
 
@@ -78,7 +81,7 @@
                      </div>
                      <div class="aa-prod-view-bottom">
                        {{-- <a class="aa-add-to-cart-btn" href="#">Add To Cart</a> --}}
-                       <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                       <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                           @csrf
                           <input type="hidden" name="id" value="{{$product->id}}">
                           <input type="hidden" name="name" value="{{$product->name}}">
@@ -86,7 +89,7 @@
                           <input type="hidden" name="weight" value="{{$product->weight}}">
                           <button type="submit" style="background-color:#fff" class="aa-add-to-cart-btn">Add To Cart</button>
                        </form>
-                       <form method="POST" style="display:inline" action="{{route('wishlist.store')}}">
+                       <form id="wishlist_form" method="POST" style="display:inline" action="{{route('wishlist.store')}}">
                         @csrf
                         <input type="hidden" name="id" value="{{$product->id}}">
                         <input type="hidden" name="name" value="{{$product->name}}">
@@ -196,7 +199,7 @@
                  <li>
                    <figure>
                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
-                     <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                     <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
                       <input type="hidden" name="name" value="{{$product->name}}">
@@ -210,7 +213,14 @@
                      </figcaption>
                    </figure>                     
                    <div class="aa-product-hvr-content">
-                     <a href="#" data-toggle="tooltip" data-placement="top" title="Add to Wishlist"><span class="fa fa-heart-o"></span></a>
+                    <form id="wishlist_form" method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
+                      @csrf
+                      <input type="hidden" name="id" value="{{$product->id}}">
+                      <input type="hidden" name="name" value="{{$product->name}}">
+                      <input type="hidden" name="price" value="{{$product->price}}">
+                      <input type="hidden" name="weight" value="{{$product->weight}}">
+                      <button style="background-color:#fff;border:none;width:36px;height:32px;;" data-toggle="tooltip" data-placement="top" title="Add to Wishlist" type="submit"><span class="fa fa-heart-o"></span></button>
+                   </form>
                      <a href="#" data-toggle2="tooltip" data-placement="top" title="Quick View" data-toggle="modal" data-target="#{{$product->id}}"><span class="fa fa-search"></span></a>                            
                    </div>
                    <!-- product badge -->
@@ -268,7 +278,7 @@
                                </p>
                              </div>
                              <div class="aa-prod-view-bottom">
-                              <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                              <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$product->id}}">
                                 <input type="hidden" name="name" value="{{$product->name}}">

@@ -1,4 +1,7 @@
 @extends('layouts.frontend.app')
+@section('title')
+    Shop
+@endsection
 
 @section('content')   
 
@@ -60,7 +63,7 @@
                    <figure>
                      <a class="aa-product-img" href="{{ route('shop.show', $product->slug)}}"><img style="width:250px;height:300px" src="{{ asset('storage/' . $product->image) }}" alt="polo shirt img"></a>
                      {{-- <a class="aa-add-card-btn"href="#"><span class="fa fa-shopping-cart"></span>Add To Cart</a> --}}
-                     <form method="POST" class="aa-add-card-btn" action="{{route('cart.store')}}">
+                     <form id="cart_form" method="POST" class="aa-add-card-btn" action="{{route('cart.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
                       <input type="hidden" name="name" value="{{$product->name}}">
@@ -75,7 +78,7 @@
                      </figcaption>
                    </figure>                         
                    <div class="aa-product-hvr-content">
-                    <form method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
+                    <form id="wishlist_form" method="POST" style="display:inline; " action="{{route('wishlist.store')}}">
                       @csrf
                       <input type="hidden" name="id" value="{{$product->id}}">
                       <input type="hidden" name="name" value="{{$product->name}}">
@@ -145,7 +148,7 @@
                                </p>
                              </div>
                              <div class="aa-prod-view-bottom">
-                              <form method="POST" style="display:inline" action="{{route('cart.store')}}">
+                              <form id="cart_form" method="POST" style="display:inline" action="{{route('cart.store')}}">
                                 @csrf
                                 <input type="hidden" name="id" value="{{$product->id}}">
                                 <input type="hidden" name="name" value="{{$product->name}}">

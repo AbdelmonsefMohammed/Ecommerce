@@ -1,5 +1,9 @@
 @extends('layouts.frontend.app')
 
+@section('title')
+    Wishlist
+@endsection
+
 @section('content')   
 
   <!-- SCROLL TOP BUTTON -->

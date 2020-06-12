@@ -353,7 +353,189 @@ jQuery(function($){
         // settings: "unslick"
         // instead of a settings object
       ]
-    }); 
+    });
+
+    $("#wishlist_form").on('submit',function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/wishlist',
+        type: 'POST',
+        data: new FormData(this),
+        dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+          if (data.success === true) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: true,
+              timer: 5000
+            })
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'info',
+              title: data.message,
+              showConfirmButton: true,
+              timer: 5000
+            })
+          }
+  
+        },error: function (data) {
+          console.log('Error......');
+        }
+      })
+
+    });
+
+    // const list = document.querySelector('.todos');
+    // const search = document.querySelector('.search input');
+    // const generateTemplate = todo => {
+    //     const html = `            
+    //     <li class="list-group-item d-flex justify-content-between align-items-center">
+    //     <span>${todo}</span>
+    //     <i class="fas fa-trash delete"></i>
+    //     </li>`
+
+    //     list.innerHTML += html;}
+    const cartCounter = document.querySelector('.aa-cart-notify');
+    const cartTotal = document.querySelector('.aa-cartbox-total-price');
+    // const cartContent = document.querySelector('#cartContent');
+    $("#cart_form").on('submit',function(e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/cart',
+        type: 'POST',
+        data: new FormData(this),
+        dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+          if (data.success === true) {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: data.message,
+              showConfirmButton: true,
+              timer: 5000
+            }),
+            cartCounter.innerHTML = data.counter;
+            cartTotal.innerHTML = data.newTotal;
+            // cartContent.innerHTML += data.cartContent;
+          } else {
+            Swal.fire({
+              position: 'center',
+              icon: 'info',
+              title: data.message,
+              showConfirmButton: true,
+              timer: 5000
+            })
+          }
+  
+        },error: function (data) {
+          console.log(data);
+        }
+      })
+
+    });
+
+//      $(function(){ 
+//   $('.remove_item').on("click", function () { 
+//   var id = $(this).data('id'); 
+//   $.ajax({
+//          type: 'DELETE',
+//          url: "cart/"+ id,  
+//          data: {'_token': $('input[name=_token]').val()},
+//          success: function (data) {
+//            $('#cart_product').html(data);        
+//          }               
+//     });
+//    });
+//  });
+
+  //   function deleteConfirmation(id) {
+  //     swal({
+  //         title: "Delete?",
+  //         text: "Please ensure and then confirm!",
+  //         type: "warning",
+  //         showCancelButton: !0,
+  //         confirmButtonText: "Yes, delete it!",
+  //         cancelButtonText: "No, cancel!",
+  //         reverseButtons: !0
+  //     }).then(function (e) {
+
+  //         if (e.value === true) {
+  //             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+  //             $.ajax({
+  //                 type: 'POST',
+  //                 url: "{{url('/delete')}}/" + id,
+  //                 data: {_token: CSRF_TOKEN},
+  //                 dataType: 'JSON',
+  //                 success: function (results) {
+
+  //                     if (results.success === true) {
+  //                         swal("Done!", results.message, "success");
+  //                     } else {
+  //                         swal("Error!", results.message, "error");
+  //                     }
+  //                 }
+  //             });
+
+  //         } else {
+  //             e.dismiss;
+  //         }
+
+  //     }, function (dismiss) {
+  //         return false;
+  //     })
+  // }
+      ////----- DELETE a link and remove from the page -----////
+    //   jQuery('.delete-link').submit(function () {
+    //     var item_id = $(this).val();
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     e.preventDefault();
+    //     $.ajax({
+    //         type: "DELETE",
+    //         url: 'cart/' + item_id,
+    //         success: function (data) {
+    //             console.log(data);
+    //             $("#item" + item_id).remove();
+    //         },
+    //         error: function (data) {
+    //             console.log('Error:', data);
+    //         }
+    //     });
+    // });
+
+    // $(".delete-link").on('submit',function(e) {
+    //   var item_id = $(this).val();
+    //   e.preventDefault();
+    //   $.ajax({
+    //     url: '/cart'+item_id,
+    //     type: 'DELETE',
+    //     data: new FormData(this),
+    //     dataType: 'JSON',
+    //     contentType: false,
+    //     cache: false,
+    //     processData: false,
+    //     success: function (data) {
+    //       console.log(success);
+  
+    //     },error: function (data) {
+    //       console.log('Error......');
+    //     }
+    //   })
+
+    // });
     
 });
 

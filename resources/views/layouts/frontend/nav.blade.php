@@ -45,12 +45,12 @@
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
                   {{-- <li><a href="#">My Account</a></li> --}}
-                  <li class="hidden-xs"><a href="{{route('wishlist.index')}}">Wishlist</a></li>
+                  <li><a href="{{route('wishlist.index')}}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{route('cart.index')}}">My Cart</a></li>
                   <li class="hidden-xs"><a href="{{route('checkout.index')}}">Checkout</a></li>
 
                   @guest
-                    <li class="hidden-xs"><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
+                    <li><a href="{{ route('login') }}">{{ __('Login') }}</a></li>
 
                     @if (Route::has('register'))
                     <li class="nav-item">
@@ -114,7 +114,7 @@
                 </a>
                 @if (Cart::count() > 0)
                 <div class="aa-cartbox-summary">
-                  <ul>
+                  <ul id="cartContent">
                     @foreach (Cart::content()->take(3) as $item)
                         
                     <li>

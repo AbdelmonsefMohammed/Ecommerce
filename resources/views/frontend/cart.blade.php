@@ -1,5 +1,7 @@
 @extends('layouts.frontend.app')
-
+@section('title')
+    Cart
+@endsection
 @section('content')   
 
   <!-- SCROLL TOP BUTTON -->
@@ -46,11 +48,11 @@
                          <th>Total</th>
                        </tr>
                      </thead>
-                     <tbody>
+                     <tbody id="cart_products">
                        
                        @foreach (Cart::content() as $item)
                            
-                       <tr>
+                       <tr id="item{{$item->model->id}}">
                          <td>
                            <form style="display:inline-block;" method='POST' action='{{route("cart.destroy", $item->rowId)}}' >
                               @csrf
