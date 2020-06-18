@@ -197,13 +197,13 @@
                       </tfoot>
                     </table>
                   </div>
-                  <h4>Payment Method</h4>
+                  {{-- <h4>Payment Method</h4>
                   <div class="aa-payment-method">                    
                     <label for="cashdelivery"><input type="radio" id="cashdelivery" > Cash on Delivery </label>
                     <label for="paypal"><input type="radio" id="paypal"  checked> Via Paypal </label>
                     <img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark">    
                     <input type="submit" id="complete-order" value="Place Order" class="aa-browse-btn">                
-                  </div>
+                  </div> --}}
                 </div>
               </div>
             </div>

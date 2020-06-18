@@ -24,7 +24,8 @@
     <link id="switcher" href="{{ asset('frontend') }}/css/bridge-theme.css" rel="stylesheet">
     <!-- Top Slider CSS -->
     <link href="{{ asset('frontend') }}/css/sequence-theme.modern-slide-in.css" rel="stylesheet" media="all">
-
+    {{-- algolia css --}}
+    <link href="{{ asset('frontend') }}/css/algolia.css" rel="stylesheet">    
     <!-- Main style sheet -->
     <link href="{{ asset('frontend') }}/css/style.css" rel="stylesheet">    
 
@@ -168,6 +169,10 @@
   <script type="text/javascript" src="{{ asset('frontend') }}/js/nouislider.js"></script>
   <!-- Custom js -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@3/dist/algoliasearchLite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
+  <script src="{{ asset('frontend') }}/js/algolia.js"></script> 
+
   <script src="{{ asset('frontend') }}/js/custom.js"></script> 
 
   @yield('extra-js')

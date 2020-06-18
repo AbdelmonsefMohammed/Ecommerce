@@ -66,4 +66,10 @@ class ShopController extends Controller
         $products = Product::search($query)->paginate(12);
         return view('frontend.search-results', compact('products'));
     }
+
+    public function searchAlgolia(Request $request)
+    {
+
+        return view('frontend.search-results-algolia');
+    }
 }

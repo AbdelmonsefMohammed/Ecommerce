@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Coupon;
+use App\Jobs\UpdateCoupon;
 use Illuminate\Http\Request;
-use Gloudemans\Shoppingcart\Facades\Cart;
 
 
 class CouponsController extends Controller
@@ -42,11 +42,8 @@ class CouponsController extends Controller
         if(!$coupon){
             return back()->with('errors', 'Invalide coupon code.');
         }
-        $subtotal =str_replace( ',', '', Cart::subtotal() );
-        session()->put('coupon', [
-            'name'  =>  $coupon->code,
-            'discount' => $coupon->discount($subtotal),
-        ]);
+
+        dispatch_now(new UpdateCoupon($coupon));
 
         return back()->with('success', 'Coupon has been applied');
     }

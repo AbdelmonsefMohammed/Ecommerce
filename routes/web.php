@@ -17,6 +17,8 @@ Route::get('/','WelcomePageController@index')->name('welcome');
 Route::get('/shop','ShopController@index')->name('shop.index');
 Route::get('/shop/{product}','ShopController@show')->name('shop.show');
 Route::get('/search','ShopController@search')->name('search');
+Route::get('/search-algolia','ShopController@searchAlgolia')->name('search-algolia');
+
 
 Route::get('/cart','CartController@index')->name('cart.index');
 Route::post('/cart','CartController@store')->name('cart.store');
