@@ -70,7 +70,7 @@
                          <td><a href="{{ route('shop.show', $item->model->slug)}}"><img src="{{ asset('storage/' . $item->model->image) }}" alt="img"></a></td>
                          <td><a class="aa-cart-title" href="{{ route('shop.show', $item->model->slug)}}">{{$item->model->name}}</a></td>
                          <td>${{$item->model->price}}</td>
-                         <td><input class="aa-cart-quantity quantity" type="number" data-id="{{ $item->rowId }}" value="{{$item->qty}}"></td>  
+                         <td><input class="aa-cart-quantity quantity" type="number" data-id="{{ $item->rowId }}" data-productQuantity="{{$item->model->quantity}}" value="{{$item->qty}}"></td>  
                           <td>${{$item->qty * $item->model->price}}</td>
                        </tr>
                        @endforeach
@@ -112,7 +112,7 @@
                             @csrf
                             @method('DELETE')
                             <button title="Delete" type="submit" style="background-color:#F5F5F5; border:none;" ><fa class="fa fa-close" style="color:#ff0000;"></fa></button>
-                        </form>
+                          </form>
                           Discount({{session()->get('coupon')['name']}})
                         </th>
                         <td>-${{$discount}}</td>
@@ -161,17 +161,17 @@
            Array.from(classname).forEach(function(element){
               element.addEventListener('change' , function(){
                 const id = element.getAttribute('data-id')
-                // const productQuantity = element.getAttribute('data-productQuantity')
+                const productQuantity = element.getAttribute('data-productQuantity')
                 axios.patch(`/cart/${id}`, {
                         quantity: this.value,
-                        // productQuantity: productQuantity
+                        productQuantity: productQuantity
                     })
                     .then(function (response) {
-                        // console.log(response);
+                         console.log(response);
                         // window.location.href = '{{ route('cart.index') }}';
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        //console.log(error);
                         // window.location.href = '{{ route('cart.index') }}'
                     });
               })

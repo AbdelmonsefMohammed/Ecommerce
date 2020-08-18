@@ -355,6 +355,7 @@ jQuery(function($){
       ]
     });
 
+    //add product to cart
     $("#wishlist_form").on('submit',function(e) {
       e.preventDefault();
       $.ajax({
@@ -401,9 +402,8 @@ jQuery(function($){
     //     </li>`
 
     //     list.innerHTML += html;}
-    const cartCounter = document.querySelector('.aa-cart-notify');
-    const cartTotal = document.querySelector('.aa-cartbox-total-price');
-    // const cartContent = document.querySelector('#cartContent');
+
+    // Add product to cart
     $("#cart_form").on('submit',function(e) {
       e.preventDefault();
       $.ajax({
@@ -423,19 +423,40 @@ jQuery(function($){
               showConfirmButton: true,
               timer: 5000
             }),
-            cartCounter.innerHTML = data.counter;
-            cartTotal.innerHTML = data.newTotal;
-            // cartContent.innerHTML += data.cartContent;
-          } else {
-            Swal.fire({
-              position: 'center',
-              icon: 'info',
-              title: data.message,
-              showConfirmButton: true,
-              timer: 5000
-            })
+            $('#cart-items').load(location.href + ' #cart-items');
           }
-  
+        },error: function (data) {
+          console.log(data);
+        }
+      })
+
+    });
+
+    // Delete product to cart
+
+
+    $("#delete-from-cart").on('submit',function(e) {
+      const id = $(this).data('id');
+      e.preventDefault();
+      $.ajax({
+        url: 'cart/'+ id,
+        type: 'DELETE',
+        data: new FormData(this),
+        dataType: 'JSON',
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            if (data.success === true) {
+              Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: data.message,
+                showConfirmButton: true,
+                timer: 5000
+              }),
+              $('#cart-items').load(location.href + ' #cart-items');
+            }
         },error: function (data) {
           console.log(data);
         }

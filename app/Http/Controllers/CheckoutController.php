@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Product;
 use App\OrderProduct;
 use App\Mail\OrderPlaced;
 use Illuminate\Http\Request;
@@ -51,6 +52,12 @@ class CheckoutController extends Controller
      */
     public function store(CheckoutRequest $request)
     {
+        //check race condition when there are less items available to purchase
+        if($this->productsAreNoLongerAvailable())
+        {
+            return back()->with('errors','Sorry! One of the items in your cart is no longer available.');
+        }
+        
         $tax = config('cart.tax') / 100;
         $discount = session()->get('coupon')['discount'] ?? 0;
         $code = session()->get('coupon')['name'] ?? null;
@@ -109,7 +116,9 @@ class CheckoutController extends Controller
                 ]);
             }
             //send mail after success
-            Mail::send(new OrderPlaced($order));
+            // Mail::send(new OrderPlaced($order));
+            //decrease the quantity of the purchased products
+            $this->decreaseQuantities();
             // Successful
             Cart::instance('default')->destroy();
             session()->forget('coupon');
@@ -152,48 +161,24 @@ class CheckoutController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+ 
+    protected function decreaseQuantities()
     {
-        //
+        foreach (Cart::content() as $item) {
+            $product = Product::findOrFail($item->model->id);
+            $product->update(['quantity' => $product->quantity - $item->qty]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    protected function productsAreNoLongerAvailable()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        foreach (Cart::content() as $item) {
+            $product = Product::findOrFail($item->model->id);
+            if($product->quantity < $item->qty)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

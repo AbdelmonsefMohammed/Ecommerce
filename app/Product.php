@@ -41,7 +41,8 @@ class Product extends Model
         'description',
         'weight',
         'category_id',
-        'featured'
+        'featured',
+        'quantity'
     ];
 
     public function category()

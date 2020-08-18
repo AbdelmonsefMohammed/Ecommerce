@@ -106,7 +106,7 @@
               </div>
               <!-- / logo  -->
                <!-- cart box -->
-              <div class="aa-cartbox">
+              <div id="cart-items" class="aa-cartbox">
                 <a class="aa-cart-link" href="{{route('cart.index')}}">
                   <span class="fa fa-shopping-basket"></span>
                   <span class="aa-cart-title">SHOPPING CART</span>
@@ -127,6 +127,7 @@
                       <form action="{{route('cart.destroy', $item->rowId)}}" method="POST">
                         @csrf
                         @method('DELETE')
+                        <input type="hidden" name="id" value="{{$item->rowId}}">
                         <button type="submit" style="background-color:#F5F5F5;border:none" class="aa-remove-product"><span class="fa fa-times"></span></button>
                      </form>
                     </li> 

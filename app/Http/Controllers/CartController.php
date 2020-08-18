@@ -46,15 +46,12 @@ class CartController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
         
         Cart::add($request->id, $request->name, 1, $request->price, $request->weight)->associate('App\Product');
         return response()->json([
             'success' => true,
             'message' => 'Item added to your cart!',
-            'counter' => Cart::instance('default')->count(),
-            'newTotal'=> Cart::total(),
-            // 'cartContent' => Cart::content()
         ]);
     }
 
@@ -93,8 +90,13 @@ class CartController extends Controller
             'quantity'  =>  'required|numeric'
         ]);
         if($validator->fails()){
-            session()->flash('errors',collect(['Quantity must be numerical.']));
+            session()->flash('errors','Quantity must be numerical.');
             return response()->json(['success' => false],400);
+        }
+        if($request->quantity > $request->productQuantity)
+        {
+            session()->flash('errors','Not enough items in stock!');
+            return response()->json(['success' => false]);
         }
 
         Cart::update($id, $request->quantity);
